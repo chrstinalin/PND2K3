@@ -11,13 +11,13 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
 
     private void OnTriggerEnter(Collider other)
     {
-        MovableObject mo = other.GetComponent<MovableObject>();
-        if (mo != null && !IsGrabbing())
+        MovableObject movableObject = other.GetComponent<MovableObject>();
+        if (movableObject != null && !IsGrabbing())
         {
-            if (objectInReach != null && objectInReach != mo)
+            if (objectInReach != null && objectInReach != movableObject)
                 objectInReach.HideOutline();
 
-            objectInReach = mo;
+            objectInReach = movableObject;
             objectInReach.ShowOutline();
         }
     }
@@ -26,20 +26,21 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
     {
         if (IsGrabbing()) return;
 
-        MovableObject mo = other.GetComponent<MovableObject>();
-        if (mo != null && objectInReach != mo)
+        MovableObject movableObject = other.GetComponent<MovableObject>();
+        if (movableObject != null && objectInReach != movableObject)
         {
             if (objectInReach != null)
                 objectInReach.HideOutline();
-            objectInReach = mo;
+
+            objectInReach = movableObject;
             objectInReach.ShowOutline();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        MovableObject mo = other.GetComponent<MovableObject>();
-        if (mo != null && objectInReach == mo)
+        MovableObject movableObject = other.GetComponent<MovableObject>();
+        if (movableObject != null && objectInReach == movableObject)
         {
             objectInReach.HideOutline();
             objectInReach = null;
@@ -48,17 +49,16 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
 
     private void Update()
     {
-        bool isButtonHeld = Input.GetButton("MoveItem");
+        if (Input.GetButtonDown("MoveItem"))
+        {
+            if (IsGrabbing())
+                Release();
+            else
+                HandleGrab();
+        }
 
-        if (isButtonHeld)
-        {
-            HandleGrab();
+        if (IsGrabbing())
             MoveGrabbedObject();
-        }
-        else
-        {
-            Release();
-        }
     }
 
     private void HandleGrab()
@@ -71,10 +71,12 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
             if (grabbedCollider != null)
                 grabbedCollider.isTrigger = true;
 
-            grabbedObject.ShowGhost(floorHeight);
+            if (grabbedObject.interactionType == MovableObject.MovableType.Pickup)
+            {
+                grabbedObject.ShowGhost(floorHeight);
+            }
 
             grabbedObject.HideOutline();
-
             objectInReach = null;
         }
     }
@@ -83,11 +85,20 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
     {
         if (!IsGrabbing()) return;
 
-        Vector3 target = transform.position + transform.forward * carryForwardOffset;
-        target.y = floorHeight + carryHeightOffset;
-        grabbedObject.transform.position = target;
+        if (grabbedObject.interactionType == MovableObject.MovableType.Pickup)
+        {
+            Vector3 target = transform.position + transform.forward * carryForwardOffset;
+            target.y = floorHeight + carryHeightOffset;
+            grabbedObject.transform.position = target;
 
-        grabbedObject.UpdateGhostPosition(floorHeight);
+            grabbedObject.UpdateGhostPosition(floorHeight);
+        }
+        else if (grabbedObject.interactionType == MovableObject.MovableType.Push)
+        {
+            Vector3 target = transform.position + transform.forward * carryForwardOffset;
+            target.y = floorHeight;
+            grabbedObject.transform.position = target;
+        }
     }
 
     public override void Release()
@@ -100,10 +111,11 @@ public class MovableObjectInteractor : MovableObjectAbstractInteractor
         pos.y = floorHeight;
         grabbedObject.transform.position = pos;
 
-        if (grabbedCollider != null)
+        if (grabbedObject.interactionType == MovableObject.MovableType.Pickup && grabbedCollider != null)
             grabbedCollider.isTrigger = false;
 
-        grabbedObject.DestroyGhost();
+        if (grabbedObject.interactionType == MovableObject.MovableType.Pickup)
+            grabbedObject.DestroyGhost();
 
         grabbedObject = null;
         grabbedCollider = null;

@@ -226,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 202943440}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.31, y: -3.9283001, z: 32.28}
+  m_LocalPosition: {x: 36.31, y: -3.9283001, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  interactionType: 1
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}
@@ -1352,7 +1353,7 @@ Transform:
   m_GameObject: {fileID: 856044550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.5, y: -3.9283001, z: 4.5}
+  m_LocalPosition: {x: 26.79, y: -3.9283001, z: 32.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1370,6 +1371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  interactionType: 0
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}
@@ -1464,7 +1466,7 @@ Transform:
   m_GameObject: {fileID: 900171667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.422, y: -3.9283001, z: 4.394}
+  m_LocalPosition: {x: 9.8, y: -3.9283001, z: -4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1482,6 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  interactionType: 0
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}
@@ -2909,8 +2912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98eea09445024264799665e31ba91a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovableObjectInteractor
-  moveOffset: 1.7
-  carryLift: 1
+  carryForwardOffset: 1.7
+  carryHeightOffset: 1
   floorHeight: 0.7
 --- !u!1001 &1743829692
 PrefabInstance:
@@ -3163,7 +3166,7 @@ Transform:
   m_GameObject: {fileID: 1788571283}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.94, y: -3.9283001, z: 16.99}
+  m_LocalPosition: {x: 41.422, y: -3.9283001, z: 15.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3181,6 +3184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  interactionType: 1
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}

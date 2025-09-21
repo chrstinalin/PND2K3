@@ -1,8 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[RequireComponent(typeof(Collider))]
 public class MovableObject : MonoBehaviour
 {
+    public enum MovableType { Push, Pickup }
+    public MovableType interactionType = MovableType.Pickup;
+
     public Grid grid;
     public Material ghostMaterial;
     public Material outlineMaterial;
@@ -47,6 +51,7 @@ public class MovableObject : MonoBehaviour
 
     public void ShowGhost(float floorHeight)
     {
+        if (interactionType != MovableType.Pickup) return;
         if (ghostInstance != null) return;
         if (!ghostMaterial) return;
 
@@ -71,6 +76,7 @@ public class MovableObject : MonoBehaviour
 
     public void UpdateGhostPosition(float floorHeight)
     {
+        if (interactionType != MovableType.Pickup) return;
         if (!ghostInstance || grid == null) return;
 
         Vector3Int cellPos = grid.WorldToCell(transform.position);

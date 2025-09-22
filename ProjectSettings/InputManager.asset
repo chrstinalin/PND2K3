@@ -278,13 +278,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Jump
+    m_Name: MovementL
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 1
+    positiveButton: joystick button 4
     altNegativeButton: 
-    altPositiveButton: space
+    altPositiveButton: tab
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -294,13 +294,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Movement
+    m_Name: MovementR
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick button 4
     altNegativeButton: 
-    altPositiveButton: r
+    altPositiveButton: space
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

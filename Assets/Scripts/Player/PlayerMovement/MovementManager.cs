@@ -11,8 +11,8 @@ public class MovementManager : PlayerMovementManager
 
     void Start()
     {
-        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed, 5f, true, 30f);
-        MovementConfig MechConfig = new(Mech, MouseMoveSpeed, 0f, false, 0f);
+        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed, 5f, true, 40f);
+        MovementConfig MechConfig = new(Mech, MouseMoveSpeed, 0f, false, 30f);
 
         MouseMovementState = new MovementState();
         MechMovementState = new MovementState();

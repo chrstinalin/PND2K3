@@ -17,5 +17,6 @@ public abstract class PlayerMovementManager : MonoBehaviour
     public float MechMoveSpeed = 4;
     public float MechEnterDistance = 2.5f;
     public float SmoothTime = 0.05f;
+    public float MouseJumpForce = 3f;
     public abstract void ToggleMouse(bool toggle);
 }

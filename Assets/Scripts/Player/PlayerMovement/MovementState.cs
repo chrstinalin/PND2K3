@@ -1,11 +1,11 @@
 using UnityEngine;
-using static UnityEngine.Rendering.STP;
 
 public class MovementState : PlayerMovementState
 {
     GameObject Entity;
     private Rigidbody _rigidbody;
     private ParticleSystem _particleSystem;
+    private Transform _entityTransform;  // Cache transform reference
     private bool _isGrounded;
     private bool _canJump;
     
@@ -18,10 +18,26 @@ public class MovementState : PlayerMovementState
     private float _dashSpeed;
     private float _dashCooldown;
     private Vector3 _dashVelocity;
+    
+    private float _groundCheckTimer;
+    private const float GROUND_CHECK_INTERVAL = 0.08f;
+    private const float GROUND_CHECK_DISTANCE = 0.7f;
+    
+    private const float DASH_DECAY_RATE = 8f;
+    private const float DASH_THRESHOLD = 0.05f;
+    private const float ROTATION_THRESHOLD = 1f;
+    private const float AIRBORNE_MULTIPLIER = 0.7f;
+    private const float SPEED_LERP_RATE = 5f;
 
+    /*
+     * ========================================================================
+     * Initialization
+     * ========================================================================
+     */
     public override void EnterState(PlayerMovementManager manager, MovementConfig config)
     {
         Entity = config.Entity;
+        _entityTransform = Entity.transform;
         _MoveSpeed = config.MoveSpeed;
         _currMoveSpeed = _MoveSpeed;
         _JumpForce = config.JumpForce;
@@ -30,114 +46,191 @@ public class MovementState : PlayerMovementState
         
         _rigidbody = Entity.GetComponent<Rigidbody>();
         _particleSystem = Entity.GetComponent<ParticleSystem>();
+        
+        _groundCheckTimer = 0f;
     }
 
+    /* 
+     * ========================================================================
+     * Movement Logic
+     * ========================================================================
+     */
     public override void UpdateState(PlayerMovementManager manager, bool isActive)
     {
         Vector3 moveDirection = new Vector3(Input.GetAxis(_Input.Horizontal), 0f, Input.GetAxis(_Input.Vertical));
 
-        if (_dashCooldown > 0)
+        UpdateTimers();
+        UpdateGroundCheck();
+        ProcessDashDecay();
+        
+        if (isActive)
         {
-            _dashCooldown -= Time.deltaTime;
+            ProcessJumpInput();
+            ProcessDashInput(moveDirection);
         }
+        
+        ApplyMovement(moveDirection, manager.SmoothTime);
+    }
 
-        if (_dashVelocity.sqrMagnitude > 0.05f)
+    /*
+     * Update timers.
+     */
+    private void UpdateTimers()
+    {
+        if (_dashCooldown > 0)
+            _dashCooldown -= Time.deltaTime;
+            
+        _groundCheckTimer -= Time.deltaTime;
+    }
+    
+    /*
+     * Check if entity is on ground.
+     */
+    private void UpdateGroundCheck()
+    {
+        if (_groundCheckTimer <= 0f)
         {
-            _dashVelocity = Vector3.Lerp(_dashVelocity, Vector3.zero, Time.deltaTime * 8f);
+            _isGrounded = Physics.Raycast(_entityTransform.position, Vector3.down, GROUND_CHECK_DISTANCE);
+            _groundCheckTimer = GROUND_CHECK_INTERVAL;
+        }
+    }
+    
+    /*
+     * Reduces dash/strafe velocity over time.
+     */
+    private void ProcessDashDecay()
+    {
+        if (_dashVelocity.sqrMagnitude > DASH_THRESHOLD)
+        {
+            _dashVelocity = Vector3.Lerp(_dashVelocity, Vector3.zero, Time.deltaTime * DASH_DECAY_RATE);
         }
         else
         {
             _dashVelocity = Vector3.zero;
         }
-        
-        // Jumping and Dashing
-        if (isActive)
+    }
+    
+    /*
+     * Jump Input Handling
+     */
+    private void ProcessJumpInput()
+    {
+        if (!_canJump || !_isGrounded || _rigidbody.linearVelocity.y > 0f)
+            return;
+            
+        if (Input.GetButtonDown("MovementR"))
         {
-            if (_canJump)
-            {
-                // Jump
-                _isGrounded = Physics.Raycast(Entity.transform.position, Vector3.down, 0.7f);
-                if (Input.GetButtonDown("MovementR") && _isGrounded && _rigidbody.linearVelocity.y <= 0f)
-                {
-                    _rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
-                }
-                
-                // Dash
-                if (Input.GetButtonDown("MovementL") && _dashCooldown <= 0)
-                {
-                    Vector3 dashDir = moveDirection.sqrMagnitude > 0 ? moveDirection.normalized : Entity.transform.forward;
-                    _dashVelocity = dashDir * _dashSpeed;
-                    _dashCooldown = 0.8f;
-                    if (_particleSystem != null)
-                    {
-                        _particleSystem.Play();
-                    }
-                    var dashAngle = Mathf.Atan2(dashDir.x, dashDir.z) * Mathf.Rad2Deg;
-                    Entity.transform.rotation = Quaternion.Euler(0f, dashAngle, 0f);
-                }
-            }
-            else if (_dashCooldown <= 0)
-            {
-                if (Input.GetButtonDown("MovementL"))
-                {
-                    _dashVelocity = -Entity.transform.right * _dashSpeed;
-                    _dashCooldown = 0.5f;
-                    if (_particleSystem != null)
-                    {
-                        var shapeModule = _particleSystem.shape;
-                        shapeModule.rotation = new Vector3(0, -90, 0); // Point left
-                        _particleSystem.Play();
-                    }
-                }
+            _rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
+        }
+    }
+    
+    /*
+     * Dash and Strafe Input Handling
+     */
+    private void ProcessDashInput(Vector3 moveDirection)
+    {
+        if (_dashCooldown > 0) return;
 
-                if (Input.GetButtonDown("MovementR"))
-                {
-                    _dashVelocity = Entity.transform.right * _dashSpeed;
-                    _dashCooldown = 0.5f;
-                    if (_particleSystem != null)
-                    {
-                        var shapeModule = _particleSystem.shape;
-                        shapeModule.rotation = new Vector3(0, 90, 0); // Point left
-                        _particleSystem.Play();
-                    }
-                }
-            }
+        if (_canJump)
+        {
+            HandleDash(moveDirection);
+        }
+        else
+        {
+            HandleStrafe();
+        }
+    }
+    
+    /*
+     * Mouse dash
+     * Dashes in the input direction, or forward if no input.
+     */
+    private void HandleDash(Vector3 moveDirection)
+    {
+        if (!Input.GetButtonDown("MovementL")) return;
+        
+        Vector3 dashDir = moveDirection.sqrMagnitude > 0 ? moveDirection.normalized : _entityTransform.forward;
+        _dashVelocity = dashDir * _dashSpeed;
+        _dashCooldown = 0.8f;
+        
+        if (_particleSystem != null)
+        {
+            _particleSystem.Play();
         }
         
-        Vector3 totalMovement = Vector3.zero;
-        totalMovement += _dashVelocity * Time.deltaTime;
+        var dashAngle = Mathf.Atan2(dashDir.x, dashDir.z) * Mathf.Rad2Deg;
+        _entityTransform.rotation = Quaternion.Euler(0f, dashAngle, 0f);
+    }
+    
+    /*
+     * Mech strafe
+     * Strafes left or right based on input.
+     */
+    private void HandleStrafe()
+    {
+        if (Input.GetButtonDown("MovementL"))
+        {
+            _dashVelocity = -_entityTransform.right * _dashSpeed;
+            _dashCooldown = 0.5f;
+            if (_particleSystem != null)
+            {
+                var shapeModule = _particleSystem.shape;
+                shapeModule.rotation = new Vector3(0, -90, 0);
+                _particleSystem.Play();
+            }
+        }
+
+        if (Input.GetButtonDown("MovementR"))
+        {
+            _dashVelocity = _entityTransform.right * _dashSpeed;
+            _dashCooldown = 0.5f;
+            if (_particleSystem != null)
+            {
+                var shapeModule = _particleSystem.shape;
+                shapeModule.rotation = new Vector3(0, 90, 0);
+                _particleSystem.Play();
+            }
+        }
+    }
+    
+    /*
+     *  Movement based on input direction, curr speed, and dash speed.
+     */
+    private void ApplyMovement(Vector3 moveDirection, float smoothTime)
+    {
+        float airborneSpeed = _MoveSpeed;
+        if (_canJump && !_isGrounded) 
+            airborneSpeed *= AIRBORNE_MULTIPLIER;
+        _currMoveSpeed = Mathf.Lerp(_currMoveSpeed, airborneSpeed, Time.deltaTime * SPEED_LERP_RATE);
+        
+        Vector3 currentVelocity = _rigidbody.linearVelocity;
+        Vector3 horizontalVelocity = _dashVelocity;
         
         if (moveDirection.sqrMagnitude > 0)
         {
-            float airborneSpeed = _MoveSpeed;
-            if (_canJump && !_isGrounded) airborneSpeed *= 0.7f;
-            _currMoveSpeed = Mathf.Lerp(_currMoveSpeed, airborneSpeed, Time.deltaTime * 5f);
-            
             float normalMovementMultiplier = 1f;
-            if (_dashVelocity.sqrMagnitude > 1f)
+            if (_dashVelocity.sqrMagnitude > ROTATION_THRESHOLD)
             {
-                if (_canJump)
-                {
-                    normalMovementMultiplier = 0.3f;
-                }
-                else
-                {
-                    normalMovementMultiplier = 0.1f;
-                }
+                normalMovementMultiplier = _canJump ? 0.3f : 0.1f;
             }
             
-            totalMovement += moveDirection * _currMoveSpeed * normalMovementMultiplier * Time.deltaTime;
+            horizontalVelocity += moveDirection * _currMoveSpeed * normalMovementMultiplier;
             
-            if (_dashVelocity.sqrMagnitude < 1f)  // Rotate if not dashing/strafing
+            if (_dashVelocity.sqrMagnitude < ROTATION_THRESHOLD)
             {
                 var targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
-                var angle = Mathf.SmoothDampAngle(Entity.transform.eulerAngles.y, targetAngle, ref _CurrentVelocity, manager.SmoothTime);
-                Entity.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+                var angle = Mathf.SmoothDampAngle(_entityTransform.eulerAngles.y, targetAngle, ref _CurrentVelocity, smoothTime);
+                _entityTransform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
             }
         }
         
-        Entity.transform.position += totalMovement;
+        _rigidbody.linearVelocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
     }
     
+    /*
+     * ========================================================================
+     * Joystick
+     * ========================================================================
+     */
     public override void UpdateJoyStick(Joystick Input) => _Input = Input;
 }

@@ -146,7 +146,6 @@ public class MovementState : PlayerMovementState
         if (Input.GetButtonDown("MovementR"))
         {
             _rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
-            //_canJump = false;
         }
     }
     

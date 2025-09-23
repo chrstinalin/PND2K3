@@ -8,7 +8,6 @@ public class BeamScript : MonoBehaviour
     {
         if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
         {
-            // Set FollowVector to the X axis of this beam (transform.right)
             playerMovementManager.MouseMovementState.setFollowVector(transform.right);
 
         }

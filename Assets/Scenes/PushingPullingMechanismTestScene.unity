@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  interactionType: 0
+  interactionType: 1
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}
@@ -2856,7 +2856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1733027708}
   - component: {fileID: 1733027709}
-  - component: {fileID: 1733027710}
+  - component: {fileID: 1733027711}
   m_Layer: 0
   m_Name: InteractionReach
   m_TagString: Untagged
@@ -2900,7 +2900,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8433932, y: 1.129425, z: 1.6324052}
   m_Center: {x: 0.013668954, y: -0.8061242, z: 0.7075226}
---- !u!114 &1733027710
+--- !u!114 &1733027711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2909,9 +2909,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1733027707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98eea09445024264799665e31ba91a42, type: 3}
+  m_Script: {fileID: 11500000, guid: caa675bd28c200c4fab9a05c09f0decc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovableObjectInteractor
+  m_EditorClassIdentifier: Assembly-CSharp::PushableObjectInteractor
   carryForwardOffset: 1.7
   carryHeightOffset: 1
   floorHeight: 0.7
@@ -3184,7 +3184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3545722984690e41b7e9f9ce1e0913f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  interactionType: 1
+  interactionType: 0
   grid: {fileID: 1639334651}
   ghostMaterial: {fileID: 2100000, guid: e38ea8a8f22a84d4086d9c63e76de371, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 93af4e0d4c0be0647aeefef9eeee3c17, type: 2}

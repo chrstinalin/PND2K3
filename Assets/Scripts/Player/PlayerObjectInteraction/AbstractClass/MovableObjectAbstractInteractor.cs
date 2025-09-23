@@ -7,7 +7,6 @@ public abstract class MovableObjectAbstractInteractor : MonoBehaviour
     public virtual void Grab(MovableObject obj)
     {
         if (obj == null) return;
-
         grabbedObject = obj;
     }
 

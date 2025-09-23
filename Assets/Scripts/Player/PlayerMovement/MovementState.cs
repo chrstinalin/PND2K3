@@ -74,7 +74,11 @@ public class MovementState : PlayerMovementState
         if (manager.IsMouseActive && FollowVector.HasValue)
         {
             Vector3 followVec = FollowVector.Value.normalized;
-            float magnitude = Mathf.Abs(horizontalInput) > Mathf.Abs(verticalInput) ? horizontalInput : verticalInput;
+            float magnitude;
+
+            if (Mathf.Abs(horizontalInput) > Mathf.Abs(verticalInput)) magnitude = horizontalInput;
+            else magnitude = verticalInput * Mathf.Sign(followVec.y);
+
             moveDirection = magnitude * new Vector3(followVec.x, 0f, followVec.z).normalized;
             _MoveSpeed = _DefaultMoveSpeed * SNEAK_MULTIPLIER;
         }

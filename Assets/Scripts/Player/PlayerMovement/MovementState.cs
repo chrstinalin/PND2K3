@@ -144,7 +144,7 @@ public class MovementState : PlayerMovementState
      */
     private void ProcessJumpInput()
     {
-        if (!_canJump || !_isGrounded || _rigidbody.linearVelocity.y > 0f)
+        if (!_canJump || !_isGrounded || _rigidbody.linearVelocity.y > 2f)
             return;
             
         if (Input.GetButtonDown("MovementR"))

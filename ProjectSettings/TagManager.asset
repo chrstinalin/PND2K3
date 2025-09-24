@@ -7,6 +7,7 @@ TagManager:
   - MechPlayerEntity
   - MousePlayerEntity
   - PatrolWaypoint
+  - GroundCollider
   layers:
   - Default
   - TransparentFX

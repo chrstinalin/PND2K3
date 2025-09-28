@@ -7,6 +7,9 @@ TagManager:
   - MechPlayerEntity
   - MousePlayerEntity
   - PatrolWaypoint
+  - Enemy
+  - Bullet
+  - MechBullet
   layers:
   - Default
   - TransparentFX

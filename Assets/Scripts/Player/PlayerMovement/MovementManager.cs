@@ -31,7 +31,7 @@ public class MovementManager : PlayerMovementManager
 
         if (Input.GetButtonDown("MountKey"))
         {
-            if (!IsMouseActive)  ToggleMouse(true);
+            if (!IsMouseActive) ToggleMouse(true);
             else if (Vector3.Distance(Mouse.transform.position, Mech.transform.position) < MechEnterDistance) ToggleMouse(false);
         }
     }
@@ -51,6 +51,6 @@ public class MovementManager : PlayerMovementManager
         {
             CameraManager.SetFollowEntity(Mech, _MechMaxZoom);
             MechMovementState.UpdateJoyStick(Constant.JOY_LEFT);
-        }        
+        }
     }
 }

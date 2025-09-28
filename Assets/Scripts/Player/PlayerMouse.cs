@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMouse : MonoBehaviour
 {
     private Health _health;
-    
+
     void Start()
     {
         _health = GetComponent<Health>();
         _health.onDeath.AddListener(OnDeath);
     }
-    
+
     public void OnDeath()
     {
         Debug.Log("Player Died. Respawning...");

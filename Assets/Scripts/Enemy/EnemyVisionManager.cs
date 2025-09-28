@@ -41,6 +41,12 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
     {
         RaycastHit MouseHit, MechHit;
 
+        if (Mouse == null || Mech == null)
+    {
+        // Debug.LogWarning("EnemyVisionManager: Mouse or Mech is not assigned!");
+        return;
+    }
+
         if (Physics.Raycast(transform.position, (Mouse.transform.position - transform.position), out MouseHit, Mathf.Infinity))
         {
             MouseIsHidden = MouseHit.transform != Mouse.transform;

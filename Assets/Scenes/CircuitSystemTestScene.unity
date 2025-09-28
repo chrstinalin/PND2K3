@@ -667,8 +667,8 @@ MonoBehaviour:
   TriggerObjects:
   - {fileID: 1020332677}
   - {fileID: 1200933511}
-  UnpressedModel: {fileID: 1940191471}
-  PressedModel: {fileID: 2037709605}
+  unpressedModel: {fileID: 1940191471}
+  pressedModel: {fileID: 2037709605}
 --- !u!4 &418894905
 Transform:
   m_ObjectHideFlags: 0
@@ -1073,8 +1073,8 @@ MonoBehaviour:
   TriggerObjects:
   - {fileID: 1020332677}
   - {fileID: 1200933511}
-  UnpressedModel: {fileID: 201972234}
-  PressedModel: {fileID: 1101271760}
+  unpressedModel: {fileID: 201972234}
+  pressedModel: {fileID: 1101271760}
 --- !u!65 &572691196
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1569,8 +1569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a729e337b51aa4d938f285da342447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  ClosedDoor: {fileID: 806212413}
-  OpenDoor: {fileID: 611096392}
+  closedDoor: {fileID: 806212413}
+  openDoor: {fileID: 611096392}
 --- !u!4 &807558454
 Transform:
   m_ObjectHideFlags: 0
@@ -1857,9 +1857,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6c4acea0c962440b0318598c070e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lever
-  OffModel: {fileID: 7354023}
-  OnModel: {fileID: 1139176327}
-  StartOn: 0
+  offModel: {fileID: 7354023}
+  onModel: {fileID: 1139176327}
+  startOn: 0
 --- !u!65 &1044654924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7922,11 +7922,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d252f8d2ace954ca2944d4d652dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircuitController
-  Triggers:
+  triggerList:
   - {fileID: 572691195}
   - {fileID: 418894904}
   - {fileID: 1044654923}
-  Triggerables:
+  triggerableList:
   - {fileID: 1782476636}
   - {fileID: 807558453}
 --- !u!4 &1736373006
@@ -8082,8 +8082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a729e337b51aa4d938f285da342447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  ClosedDoor: {fileID: 174519192}
-  OpenDoor: {fileID: 992801950}
+  closedDoor: {fileID: 174519192}
+  openDoor: {fileID: 992801950}
 --- !u!4 &1782476637
 Transform:
   m_ObjectHideFlags: 0

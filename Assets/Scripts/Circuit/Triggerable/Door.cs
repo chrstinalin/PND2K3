@@ -7,8 +7,8 @@ public class Door : TriggerableAbstract
 
     private void Awake()
     {
-        if (ClosedDoor != null) ClosedDoor.SetActive(true);
-        if (OpenDoor != null) OpenDoor.SetActive(false);
+        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
+        if (OpenDoor)   OpenDoor.SetActive(IsOn);
         IsOn = false;
     }
 
@@ -17,8 +17,8 @@ public class Door : TriggerableAbstract
         if (IsOn) return;
         IsOn = true;
 
-        if (ClosedDoor != null) ClosedDoor.SetActive(false);
-        if (OpenDoor != null) OpenDoor.SetActive(true);
+        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
+        if (OpenDoor) OpenDoor.SetActive(IsOn);
     }
 
     public override void TurnOff()
@@ -26,7 +26,7 @@ public class Door : TriggerableAbstract
         if (!IsOn) return;
         IsOn = false;
 
-        if (ClosedDoor != null) ClosedDoor.SetActive(true);
-        if (OpenDoor != null) OpenDoor.SetActive(false);
+        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
+        if (OpenDoor) OpenDoor.SetActive(IsOn);
     }
 }

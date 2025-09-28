@@ -299,6 +299,11 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
+    m_Name: MovementL
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 4
     altNegativeButton: 
     altPositiveButton: tab
     gravity: 1000
@@ -315,6 +320,11 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
+    m_Name: MovementR
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 4
     altNegativeButton: 
     altPositiveButton: space
     gravity: 1000

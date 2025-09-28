@@ -11,8 +11,8 @@ public class MovementManager : PlayerMovementManager
 
     void Start()
     {
-        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed);
-        MovementConfig MechConfig = new(Mech, MouseMoveSpeed);
+        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed, 5f, true, 40f);
+        MovementConfig MechConfig = new(Mech, MouseMoveSpeed, 0f, false, 30f);
 
         MouseMovementState = new MovementState();
         MechMovementState = new MovementState();
@@ -25,8 +25,8 @@ public class MovementManager : PlayerMovementManager
 
     void Update()
     {
-        if (IsMouseActive) MouseMovementState.UpdateState(this);
-        MechMovementState.UpdateState(this);
+        if (IsMouseActive) MouseMovementState.UpdateState(this, true);
+        MechMovementState.UpdateState(this, !IsMouseActive);
         CameraManager.UpdateCamera();
 
         if (Input.GetButtonDown("MountKey"))

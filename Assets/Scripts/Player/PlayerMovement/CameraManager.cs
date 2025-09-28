@@ -6,6 +6,12 @@ public class CameraManager : CameraMovementManager
     GameObject FollowEntity;
     public GameObject CameraPivot;
     public Camera Cam;
+    private float heightOffset;
+
+    public void Start()
+    {
+        heightOffset = CameraPivot.transform.position.y;
+    }
 
     public override void SetFollowEntity(GameObject entity, float? newZoom)
     {
@@ -27,7 +33,7 @@ public class CameraManager : CameraMovementManager
 
         // Update location
         CameraPivot.transform.position = new Vector3(FollowEntity.transform.position.x,
-                                             CameraPivot.transform.position.y,
+                                             FollowEntity.transform.position.y + heightOffset,
                                              FollowEntity.transform.position.z);
     }
 

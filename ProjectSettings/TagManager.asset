@@ -12,6 +12,9 @@ TagManager:
   - MechHealthFront
   - MouseHealthPointContainer
   - MechInventoryContainer
+  - Enemy
+  - Bullet
+  - MechBullet
   layers:
   - Default
   - TransparentFX

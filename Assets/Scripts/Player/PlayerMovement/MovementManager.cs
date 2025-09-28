@@ -51,6 +51,6 @@ public class MovementManager : PlayerMovementManager
         {
             CameraManager.SetFollowEntity(Mech, _MechMaxZoom);
             MechMovementState.UpdateJoyStick(Constant.JOY_LEFT);
-        }        
+        }
     }
 }

@@ -317,6 +317,13 @@ InputManager:
     positiveButton: joystick button 0
     altNegativeButton: 
     altPositiveButton: space
+    m_Name: TabEnemy
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: tab
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -333,6 +340,13 @@ InputManager:
     positiveButton: joystick button 3
     altNegativeButton: 
     altPositiveButton: p
+    m_Name: AttackEnemy
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: space
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PlayerMouse : MonoBehaviour
 {
     private Health _health;
-
     private Image[] HealthPoints;
     
     void Start()
@@ -17,11 +16,9 @@ public class PlayerMouse : MonoBehaviour
     
     public void OnHealthChanged(int damage)
     {
-        Debug.Log("Damage taken, updating health UI.");
         for (int i = 0; i < _health.GetMaxHealth(); i++)
         {
             HealthPoints[i].enabled = i <= _health.GetCurrHealth() - 1;
-            Debug.Log($"Health Point {i} enabled: {HealthPoints[i].enabled}");
         }
     }
 

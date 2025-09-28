@@ -12,7 +12,7 @@ public class PlayerMech : MonoBehaviour, IOffense
     private bool isTarget;
     private Dictionary<int, Renderer> enemyIdToRenderer;
     private List<Outline> outlines;
-    private bool attacking;
+    private bool isAttacking;
 
     private TargettedBulletEmitter bulletEmitter;
 
@@ -119,6 +119,7 @@ public class PlayerMech : MonoBehaviour, IOffense
             Debug.Log("resetting");
             resetSelectEnemy();
             isTarget = false;
+            isAttacking = false;
         }
 
         if (isTarget && Input.GetButtonDown("TabEnemy"))
@@ -138,14 +139,13 @@ public class PlayerMech : MonoBehaviour, IOffense
 
         if (isTarget && Input.GetButtonDown("AttackEnemy"))
         {
-            Debug.Log("Mech attacking");
             bulletEmitter.SetTarget(enemies[currEnemyIndex].transform);
-            attacking = true;
+            isAttacking = true;
         }
     }
     
     public bool isAttack()
     {
-        return attacking;
+        return isAttacking;
     }
 }

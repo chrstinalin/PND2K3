@@ -1,21 +1,23 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
 public class Button : TriggerAbstract
 {
     public List<GameObject> TriggerObjects = new List<GameObject>();
-
-    public GameObject UnpressedModel;
-    public GameObject PressedModel;
+    [SerializeField] private GameObject unpressedModel;
+    [SerializeField] private GameObject pressedModel;
 
     private void Awake()
     {
-        Collider col = GetComponent<Collider>();
+        if (!unpressedModel || !pressedModel)
+            throw new MissingReferenceException(
+                $"{name}: Both unpressed and pressed models must be assigned.");
+
+        var col = GetComponent<Collider>();
         col.isTrigger = true;
 
-        if (UnpressedModel != null) UnpressedModel.SetActive(true);
-        if (PressedModel != null) PressedModel.SetActive(false);
+        UpdateVisuals();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,17 +36,19 @@ public class Button : TriggerAbstract
     {
         if (IsActive) return;
         IsActive = true;
-
-        if (UnpressedModel != null) UnpressedModel.SetActive(false);
-        if (PressedModel != null) PressedModel.SetActive(true);
+        UpdateVisuals();
     }
 
     public override void Deactivate()
     {
         if (!IsActive) return;
         IsActive = false;
+        UpdateVisuals();
+    }
 
-        if (UnpressedModel != null) UnpressedModel.SetActive(true);
-        if (PressedModel != null) PressedModel.SetActive(false);
+    private void UpdateVisuals()
+    {
+        unpressedModel.SetActive(!IsActive);
+        pressedModel.SetActive(IsActive);
     }
 }

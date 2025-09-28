@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class Door : TriggerableAbstract
 {
-    public GameObject ClosedDoor;
-    public GameObject OpenDoor;
+    [SerializeField] private GameObject closedDoor;
+    [SerializeField] private GameObject OpenDoor;
 
     private void Awake()
     {
-        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
-        if (OpenDoor)   OpenDoor.SetActive(IsOn);
+        if (!closedDoor || !OpenDoor)
+        throw new MissingReferenceException(
+            $"{name}: Both closed and open door models must be assigned.");
+
+        closedDoor.SetActive(!IsOn);
+        OpenDoor.SetActive(IsOn);
         IsOn = false;
     }
 
@@ -17,8 +21,8 @@ public class Door : TriggerableAbstract
         if (IsOn) return;
         IsOn = true;
 
-        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
-        if (OpenDoor) OpenDoor.SetActive(IsOn);
+        closedDoor.SetActive(!IsOn);
+        OpenDoor.SetActive(IsOn);
     }
 
     public override void TurnOff()
@@ -26,7 +30,7 @@ public class Door : TriggerableAbstract
         if (!IsOn) return;
         IsOn = false;
 
-        if (ClosedDoor) ClosedDoor.SetActive(!IsOn);
-        if (OpenDoor) OpenDoor.SetActive(IsOn);
+        closedDoor.SetActive(!IsOn);
+        OpenDoor.SetActive(IsOn);
     }
 }

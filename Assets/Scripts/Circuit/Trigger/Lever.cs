@@ -2,42 +2,44 @@ using UnityEngine;
 
 public class Lever : TriggerAbstract
 {
-    public GameObject OffModel;
-    public GameObject OnModel;
+    [SerializeField] private GameObject offModel;
+    [SerializeField] private GameObject onModel;
 
-    public bool StartOn = false;
+    [SerializeField] private bool startOn = false;
 
     private void Awake()
     {
-        IsActive = StartOn;
+        if (!offModel || !onModel)
+        throw new MissingReferenceException(
+            $"{name}: Both off and on models must be assigned.");
 
-        if (OffModel != null) OffModel.SetActive(!StartOn);
-        if (OnModel != null) OnModel.SetActive(StartOn);
+        IsActive = startOn;
+        UpdateVisuals();
     }
 
     public override void Activate()
     {
         if (IsActive) return;
         IsActive = true;
-
-        if (OffModel != null) OffModel.SetActive(false);
-        if (OnModel != null) OnModel.SetActive(true);
+        UpdateVisuals();
     }
 
     public override void Deactivate()
     {
         if (!IsActive) return;
         IsActive = false;
-
-        if (OffModel != null) OffModel.SetActive(true);
-        if (OnModel != null) OnModel.SetActive(false);
+        UpdateVisuals();
     }
 
     public void ToggleLever()
     {
-        if (IsActive)
-            Deactivate();
-        else
-            Activate();
+        if (IsActive) Deactivate();
+        else Activate();
+    }
+
+    private void UpdateVisuals()
+    {
+        offModel.SetActive(!IsActive);
+        onModel.SetActive(IsActive);
     }
 }

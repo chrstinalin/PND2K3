@@ -322,6 +322,7 @@ PrefabInstance:
     - {fileID: 6564052502065109094, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1129973977763245097, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
+    - {fileID: 2858543065607257606, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7275317914325388625, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
@@ -330,27 +331,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7275317914325388625, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1200933512}
-    - targetCorrespondingSourceObject: {fileID: 2858543065607257606, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 93803674}
   m_SourcePrefab: {fileID: 100100000, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
---- !u!1 &93803673 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2858543065607257606, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
-  m_PrefabInstance: {fileID: 57420030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &93803674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93803673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d2ba08e8689b147acd3c18bdf1e113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &115711911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,6 +1841,7 @@ MonoBehaviour:
   offModel: {fileID: 7354023}
   onModel: {fileID: 1139176327}
   startOn: 0
+  mouse: {fileID: 1200933511}
 --- !u!65 &1044654924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1879,8 +1861,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1852493, y: 0.49770665, z: 1.5150471}
-  m_Center: {x: -7.5538006, y: -0.80444324, z: 6.227154}
+  m_Size: {x: 2.319088, y: 0.49770665, z: 2.5673556}
+  m_Center: {x: -7.820137, y: -0.80444324, z: 6.243702}
 --- !u!1 &1101271760 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 84b0b75bb18e7f545aee021ade990f31, type: 3}

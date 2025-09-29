@@ -11,6 +11,7 @@ TagManager:
   - MechHealthBack
   - MechHealthFront
   - MouseHealthPointContainer
+  - MechInventoryContainer
   layers:
   - Default
   - TransparentFX

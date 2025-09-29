@@ -147,7 +147,7 @@ public class MovementState : PlayerMovementState
         if (!_canJump || !_isGrounded || _rigidbody.linearVelocity.y > 2f)
             return;
             
-        if (Input.GetButtonDown("MovementR"))
+        if (Input.GetButtonDown("MouseJump"))
         {
             _rigidbody.AddForce(Vector3.up * _JumpForce, ForceMode.Impulse);
         }
@@ -176,7 +176,7 @@ public class MovementState : PlayerMovementState
      */
     private void HandleDash(Vector3 moveDirection)
     {
-        if (!Input.GetButtonDown("MovementL")) return;
+        if (!Input.GetButtonDown("MouseDash")) return;
         
         Vector3 dashDir = moveDirection.sqrMagnitude > 0 ? moveDirection.normalized : _entityTransform.forward;
         _dashVelocity = dashDir * _dashSpeed;
@@ -197,7 +197,7 @@ public class MovementState : PlayerMovementState
      */
     private void HandleStrafe()
     {
-        if (Input.GetButtonDown("MovementL"))
+        if (Input.GetButtonDown("MechLeftStrafe"))
         {
             _dashVelocity = -_entityTransform.right * _dashSpeed;
             _dashCooldown = 0.5f;
@@ -209,7 +209,7 @@ public class MovementState : PlayerMovementState
             }
         }
 
-        if (Input.GetButtonDown("MovementR"))
+        if (Input.GetButtonDown("MechRightStrafe"))
         {
             _dashVelocity = _entityTransform.right * _dashSpeed;
             _dashCooldown = 0.5f;

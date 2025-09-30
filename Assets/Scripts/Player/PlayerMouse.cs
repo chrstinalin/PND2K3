@@ -8,7 +8,8 @@ public class PlayerMouse : MonoBehaviour
     
     void Start()
     {
-        HealthPoints = GameObject.FindGameObjectWithTag("MouseHealthPointContainer").GetComponentsInChildren<Image>();
+        GameObject HealthPointContainer = GameObject.FindGameObjectWithTag("MouseHealthPointContainer");
+        if (HealthPointContainer) HealthPoints = HealthPointContainer.GetComponentsInChildren<Image>();
         _health = GetComponent<Health>();
         _health.onHealthChanged.AddListener(OnHealthChanged);
         _health.onDeath.AddListener(OnDeath);

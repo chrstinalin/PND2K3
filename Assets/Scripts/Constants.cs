@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class Constant
 {
@@ -22,4 +23,21 @@ public struct Joystick
         Horizontal = horizontal;
         Vertical = vertical;
     }
+}
+
+public enum CardinalDirection
+{
+    North,
+    South,
+    East,
+    West
+}
+
+
+public static class GridDirection
+{
+    public static readonly Vector3Int North = new Vector3Int(0, 1, 0);
+    public static readonly Vector3Int South = new Vector3Int(0, -1, 0);
+    public static readonly Vector3Int East  = new Vector3Int(1, 0, 0);
+    public static readonly Vector3Int West  = new Vector3Int(-1, 0, 0);
 }

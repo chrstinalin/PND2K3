@@ -32,18 +32,20 @@ public class MouseInventoryManager : InventoryAbstractManager
 
     private void Update()
     {
-        if (Input.GetButtonDown("DropItem"))
-        {   
-            // There is only 1 item in Peanut's inventory
+        if (Input.GetButtonDown("Interact"))
+        {
+            // Check if we need to remove an item first
             RemoveItem(0);
+
+            if (nearbyCollectible != null)
+            {
+                AddItem(nearbyCollectible.itemData);
+                nearbyCollectible.OnPickUp();
+                nearbyCollectible = null;
+            }
         }
         
-        if (nearbyCollectible != null && Input.GetButtonDown("PickupItem"))
-        {
-            AddItem(nearbyCollectible.itemData);
-            nearbyCollectible.OnPickUp();
-            nearbyCollectible = null;
-        }
+        
     }
 
     public override void AddItem(ItemData item)

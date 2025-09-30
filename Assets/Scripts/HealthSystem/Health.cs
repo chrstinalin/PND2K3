@@ -21,25 +21,21 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageAmount = damage;
-        currHealth -= damageAmount;
+        currHealth = Mathf.Clamp(currHealth - damageAmount, 0, maxHealth);
     
         Debug.Log($"Took {damageAmount} damage. Health: {currHealth}/{maxHealth}");
     
         onHealthChanged.Invoke(currHealth);
-
-        if (currHealth <= 0)
-        {
-            onDeath.Invoke();
-        }
+        if (currHealth <= 0) onDeath.Invoke();
     }
     
     public void Heal(int healAmount)
     {
-        currHealth += healAmount;
-        if (currHealth > maxHealth)
-        {
-            currHealth = maxHealth;
-        }
+        Debug.Log($"Gained {healAmount} damage. Health: {currHealth}/{maxHealth}");
+
+        currHealth = Mathf.Clamp(currHealth + healAmount, 0, maxHealth);
         onHealthChanged.Invoke(currHealth);
+
+        Debug.Log($"Health: {currHealth}/{maxHealth}");
     }
 }

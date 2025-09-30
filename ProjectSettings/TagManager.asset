@@ -7,6 +7,11 @@ TagManager:
   - MechPlayerEntity
   - MousePlayerEntity
   - PatrolWaypoint
+  - GroundCollider
+  - MechHealthBack
+  - MechHealthFront
+  - MouseHealthPointContainer
+  - MechInventoryContainer
   layers:
   - Default
   - TransparentFX

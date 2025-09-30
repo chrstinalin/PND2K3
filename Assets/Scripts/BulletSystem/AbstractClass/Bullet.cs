@@ -9,6 +9,7 @@ public abstract class Bullet : MonoBehaviour
     public int damage;
     public int speed;
     public float lifetime = 5f;
+    public bool DamageDealt = false;
 
     void Update()
     {

@@ -11,6 +11,10 @@ TagManager:
   - Bullet
   - MechBullet
   - GroundCollider
+  - MechHealthBack
+  - MechHealthFront
+  - MouseHealthPointContainer
+  - MechInventoryContainer
   layers:
   - Default
   - TransparentFX

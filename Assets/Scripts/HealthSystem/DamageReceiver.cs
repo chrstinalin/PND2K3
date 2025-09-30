@@ -9,7 +9,11 @@ public class DamageReceiver : MonoBehaviour
     {
         var bullet = other.GetComponent<Bullet>();
         if (bullet == null) return;
-        onTakeDamage.Invoke(bullet.damage);
         Destroy(other.gameObject);
+        if (!bullet.DamageDealt)
+        {
+            bullet.DamageDealt = true;
+            onTakeDamage.Invoke(bullet.damage);
+        }
     }
 }

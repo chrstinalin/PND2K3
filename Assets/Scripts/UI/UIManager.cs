@@ -11,10 +11,15 @@ public class InventoryUIManager : MonoBehaviour
 
     [Header("Mecha Inventory UI")]
     public MechaInventoryManager mechaInventory;
-    public Text mechaInventoryText; // Use built-in Text
+    public Image[] mechItemImage;
+
+    public Text mechaInventoryText;
 
     private void Update()
     {
+        mechItemImage = GameObject.FindGameObjectWithTag("MechInventoryContainer").GetComponentsInChildren<Image>();
+
+
         UpdateMouseUI();
         UpdateMechaUI();
     }
@@ -26,12 +31,10 @@ public class InventoryUIManager : MonoBehaviour
         if (mouseInventory.items.Count > 0 && mouseInventory.items[0].icon != null)
         {
             mouseItemImage.sprite = mouseInventory.items[0].icon;
-            mouseItemImage.enabled = true;
         }
         else
         {
             mouseItemImage.sprite = null;
-            mouseItemImage.enabled = false;
         }
     }
 
@@ -39,22 +42,14 @@ public class InventoryUIManager : MonoBehaviour
     {
         if (mechaInventory == null || mechaInventoryText == null) return;
 
-        mechaInventoryText.text = BuildMechaInventoryString();
-    }
-
-    private string BuildMechaInventoryString()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Dreadnought Killer's Inventory:");
-
         if (mechaInventory.items != null && mechaInventory.items.Count > 0)
         {
-            foreach (var item in mechaInventory.items)
+            for (int i = 0; i < mechaInventory.items.Count; i++)
             {
-                sb.AppendLine("- " + item.itemName);
+                var item = mechaInventory.items[i];
+                mechItemImage[i].sprite = item.icon;
             }
         }
-
-        return sb.ToString();
     }
+
 }

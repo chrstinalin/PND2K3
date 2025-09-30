@@ -17,14 +17,19 @@ public class PlayerMech : MonoBehaviour
 
     void Start()
     {
-        HealthFront =  GameObject.FindGameObjectWithTag("MechHealthFront").GetComponent<Image>();
-        HealthBack = GameObject.FindGameObjectWithTag("MechHealthBack").GetComponent<Image>();
+        GameObject _HealthFront = GameObject.FindGameObjectWithTag("MechHealthFront");
+        GameObject _HealthBack = GameObject.FindGameObjectWithTag("MechHealthBack");
+        if (_HealthFront) HealthFront = _HealthFront.GetComponent<Image>();
+        if (_HealthBack) HealthBack = _HealthBack.GetComponent<Image>();
+
         _health = GetComponent<Health>();
         _health.onDeath.AddListener(OnDeath);
     }
 
     void Update()
     {
+        if(!HealthFront || !HealthBack) return;
+
         float fillA = HealthFront.fillAmount;
         float fillB = HealthBack.fillAmount;
         float hFraction = (float)_health.GetCurrHealth() / _health.GetMaxHealth();
@@ -57,6 +62,7 @@ public class PlayerMech : MonoBehaviour
     }
     private void resetHealthBar()
     {
+        if (!HealthFront || !HealthBack) return;
         HealthFront.fillAmount = 1f;
         HealthBack.fillAmount = 1f;
     }

@@ -17,7 +17,8 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Update()
     {
-        mechItemImage = GameObject.FindGameObjectWithTag("MechInventoryContainer").GetComponentsInChildren<Image>();
+        GameObject MechInventoryContainer = GameObject.FindGameObjectWithTag("MechInventoryContainer");
+        if (MechInventoryContainer) mechItemImage = MechInventoryContainer.GetComponentsInChildren<Image>();
 
 
         UpdateMouseUI();

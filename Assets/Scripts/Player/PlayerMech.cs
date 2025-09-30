@@ -18,7 +18,7 @@ public class PlayerMech : MonoBehaviour, IOffense
     private List<Renderer> renderers;
     private GameObject[] enemies;
     private int currEnemyIndex;
-    private bool isTarget;
+    private bool isTarget = false;
     private Dictionary<int, Renderer> enemyIdToRenderer;
     private List<Outline> outlines;
     private bool isAttacking;
@@ -64,8 +64,43 @@ public class PlayerMech : MonoBehaviour, IOffense
     }
 
     void Update()
-    {
-        if(!HealthFront || !HealthBack) return;
+    {   
+        if (!isTarget && Input.GetButtonDown("SelectTarget"))
+        {
+            isTarget = true;
+            Debug.Log("selecting enemy");
+            OnHighlightEnemy();
+        }
+        else if (isTarget && Input.GetButtonDown("SelectTarget"))
+        {
+            Debug.Log("resetting");
+            resetSelectEnemy();
+            isTarget = false;
+            isAttacking = false;
+        }
+
+        if (isTarget && Input.GetButtonDown("TabEnemy"))
+        {
+            var prevIndex = currEnemyIndex;
+
+            if (currEnemyIndex < enemies.Length - 1)
+            {
+                currEnemyIndex += 1;
+            }
+            else
+            {
+                currEnemyIndex = 0;
+            }
+            OnSelectEnemy(prevIndex, currEnemyIndex);
+        }
+
+        if (isTarget && Input.GetButtonDown("AttackEnemy"))
+        {
+            bulletEmitter.SetTarget(enemies[currEnemyIndex].transform);
+            isAttacking = true;
+        }
+
+        if (!HealthFront || !HealthBack) return;
 
         float fillA = HealthFront.fillAmount;
         float fillB = HealthBack.fillAmount;
@@ -138,44 +173,6 @@ public class PlayerMech : MonoBehaviour, IOffense
         }
     }
 
-    private void Update()
-    {
-        if (!isTarget && Input.GetButtonDown("SelectTarget"))
-        {
-            isTarget = true;
-            Debug.Log("selecting enemy");
-            OnHighlightEnemy();
-        }
-        else if (isTarget && Input.GetButtonDown("SelectTarget"))
-        {
-            Debug.Log("resetting");
-            resetSelectEnemy();
-            isTarget = false;
-            isAttacking = false;
-        }
-
-        if (isTarget && Input.GetButtonDown("TabEnemy"))
-        {
-            var prevIndex = currEnemyIndex;
-
-            if (currEnemyIndex < enemies.Length - 1)
-            {
-                currEnemyIndex += 1;
-            }
-            else
-            {
-                currEnemyIndex = 0;
-            }
-            OnSelectEnemy(prevIndex, currEnemyIndex);
-        }
-
-        if (isTarget && Input.GetButtonDown("AttackEnemy"))
-        {
-            bulletEmitter.SetTarget(enemies[currEnemyIndex].transform);
-            isAttacking = true;
-        }
-    }
-    
     public bool isAttack()
     {
         return isAttacking;

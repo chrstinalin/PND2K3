@@ -14,7 +14,7 @@ public class PushableObject : MovableObject
 
     private void Update()
     {
-        if (Input.GetButtonDown("MoveItem"))
+        if (Input.GetButtonDown("Interact"))
             TryPush();
     }
 
@@ -65,10 +65,10 @@ public class PushableObject : MovableObject
     {
         switch (side)
         {
-            case CardinalDirection.North: return new Vector3Int(0, 1, 0);
-            case CardinalDirection.South: return new Vector3Int(0, -1, 0);
-            case CardinalDirection.East:  return new Vector3Int(1, 0, 0);
-            case CardinalDirection.West:  return new Vector3Int(-1, 0, 0);
+            case CardinalDirection.North: return GridDirection.North;
+            case CardinalDirection.South: return GridDirection.South;
+            case CardinalDirection.East:  return GridDirection.East;
+            case CardinalDirection.West:  return GridDirection.West;
             default: return Vector3Int.zero;
         }
     }

@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -9,6 +10,13 @@ public class PlayerMech : MonoBehaviour, IOffense
     private Health _health;
     [SerializeField] MovementManager movementManager;
 
+    private List<Renderer> renderers;
+    private GameObject[] enemies;
+    private int currEnemyIndex;
+    private bool isTarget;
+    private Dictionary<int, Renderer> enemyIdToRenderer;
+    private List<Outline> outlines;
+    private bool isAttacking;
     private float _DamageLerp = 5f;
     private float _ChipLerp = 50f;
     private float lerpTimer;
@@ -22,6 +30,13 @@ public class PlayerMech : MonoBehaviour, IOffense
     private Dictionary<int, Renderer> enemyIdToRenderer;
     private List<Outline> outlines;
     private bool isAttacking;
+
+    private TargettedBulletEmitter bulletEmitter;
+
+    void Awake()
+    {
+        bulletEmitter = GetComponent<TargettedBulletEmitter>();
+    }
 
     private TargettedBulletEmitter bulletEmitter;
 
@@ -125,7 +140,9 @@ public class PlayerMech : MonoBehaviour, IOffense
             HealthBack.fillAmount = Mathf.Lerp(fillB, hFraction, lerpTimer / _ChipLerp);
         }
     }
+
     public void OnHealthChanged(int damage) => lerpTimer = 0;
+    
     public void OnDeath()
     {
         transform.position = new Vector3(0, 1, 0);
@@ -173,6 +190,44 @@ public class PlayerMech : MonoBehaviour, IOffense
         }
     }
 
+    private void Update()
+    {
+        if (!isTarget && Input.GetButtonDown("SelectTarget"))
+        {
+            isTarget = true;
+            Debug.Log("selecting enemy");
+            OnHighlightEnemy();
+        }
+        else if (isTarget && Input.GetButtonDown("SelectTarget"))
+        {
+            Debug.Log("resetting");
+            resetSelectEnemy();
+            isTarget = false;
+            isAttacking = false;
+        }
+
+        if (isTarget && Input.GetButtonDown("TabEnemy"))
+        {
+            var prevIndex = currEnemyIndex;
+
+            if (currEnemyIndex < enemies.Length - 1)
+            {
+                currEnemyIndex += 1;
+            }
+            else
+            {
+                currEnemyIndex = 0;
+            }
+            OnSelectEnemy(prevIndex, currEnemyIndex);
+        }
+
+        if (isTarget && Input.GetButtonDown("AttackEnemy"))
+        {
+            bulletEmitter.SetTarget(enemies[currEnemyIndex].transform);
+            isAttacking = true;
+        }
+    }
+    
     public bool isAttack()
     {
         return isAttacking;

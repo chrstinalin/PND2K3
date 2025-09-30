@@ -10,19 +10,26 @@ public class SideTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player) playerInRange = true;
-        else blocked = true;
+        if (other.gameObject == player)
+            playerInRange = true;
+        else if (!other.isTrigger)
+            blocked = true;
     }
+
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == player) playerInRange = true;
-        else blocked = true;
+        if (other.gameObject == player)
+            playerInRange = true;
+        else if (!other.isTrigger)
+            blocked = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == player) playerInRange = false;
-        else blocked = false;
+        if (other.gameObject == player)
+            playerInRange = false;
+        else if (!other.isTrigger)
+            blocked = false;
     }
 
     public bool CanPush() => playerInRange && !blocked;

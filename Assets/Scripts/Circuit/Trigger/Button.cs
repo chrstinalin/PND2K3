@@ -25,6 +25,11 @@ public class Button : TriggerAbstract
         if (TriggerObjects.Contains(other.gameObject))
             Activate();
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (TriggerObjects.Contains(other.gameObject))
+            Activate();
+    }
 
     private void OnTriggerExit(Collider other)
     {

@@ -9,14 +9,18 @@ public class MovementManager : PlayerMovementManager
     private float _MouseMaxZoom = 4f;
     private float _MechMaxZoom = 10f;
 
+    public AudioSource jumpSound;
+    public AudioSource dashSound;
+
     void Start()
     {
-        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed, 5f, true, 40f);
+        MovementConfig MouseConfig = new(Mouse, MouseMoveSpeed, 5f, true, 40f, jumpSound, dashSound);
         MovementConfig MechConfig = new(Mech, MouseMoveSpeed, 0f, false, 30f);
 
         MouseMovementState = new MovementState();
         MechMovementState = new MovementState();
 
+        Debug.Log(dashSound);
         MouseMovementState.EnterState(this, MouseConfig);
         MechMovementState.EnterState(this, MechConfig);
 

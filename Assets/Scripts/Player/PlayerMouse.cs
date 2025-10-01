@@ -5,7 +5,10 @@ public class PlayerMouse : MonoBehaviour
 {
     private Health _health;
     private Image[] HealthPoints;
-    
+    public float stepRate = 0.2f;
+	public float stepCoolDown;
+	public AudioSource footStep;
+
     void Start()
     {
         GameObject HealthPointContainer = GameObject.FindGameObjectWithTag("MouseHealthPointContainer");
@@ -14,7 +17,7 @@ public class PlayerMouse : MonoBehaviour
         _health.onHealthChanged.AddListener(OnHealthChanged);
         _health.onDeath.AddListener(OnDeath);
     }
-    
+
     public void OnHealthChanged(int damage)
     {
         for (int i = 0; i < _health.GetMaxHealth(); i++)
@@ -28,5 +31,15 @@ public class PlayerMouse : MonoBehaviour
         Debug.Log("Player Died. Respawning...");
         transform.position = new Vector3(0, 1, 0);
         _health.Heal(_health.GetMaxHealth());
+    }
+
+    public void Update()
+    {
+        stepCoolDown -= Time.deltaTime;
+		if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCoolDown < 0f){
+            Debug.Log("Playing footsteps");
+			footStep.PlayOneShot (footStep.clip);
+			stepCoolDown = stepRate;
+		}
     }
 }

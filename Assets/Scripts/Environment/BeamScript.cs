@@ -15,7 +15,11 @@ public class BeamScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        playerMovementManager.MouseMovementState.setFollowVector(null);
+        if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
+        {
+            playerMovementManager.MouseMovementState.setFollowVector(null);
+
+        }
     }
 
 }

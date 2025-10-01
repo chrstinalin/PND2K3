@@ -54,6 +54,7 @@ public class Lever : TriggerAbstract
     public override void Activate()
     {
         if (IsActive) return;
+        PlayActivateSound();
         IsActive = true;
         UpdateVisuals();
     }
@@ -61,6 +62,7 @@ public class Lever : TriggerAbstract
     public override void Deactivate()
     {
         if (!IsActive) return;
+        PlayDeactivateSound();
         IsActive = false;
         UpdateVisuals();
     }

@@ -1,10 +1,11 @@
 using UnityEngine;
-
+using UnityEngine.Events;
 public class PushableObject : MovableObject
 {
     public float floorHeight = 0f;
     public SideTrigger[] sideTriggers;
     public GameObject player;
+    public AudioSource audioSource;
 
     private void Awake()
     {
@@ -39,6 +40,8 @@ public class PushableObject : MovableObject
 
         if (oppositeTrigger != null && oppositeTrigger.blocked)
             return;
+
+        audioSource.PlayOneShot(audioSource.clip);
 
         Vector3Int pushDir = GetPushDirection(trigger.side);
 

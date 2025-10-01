@@ -14,9 +14,14 @@ public class PlayerMech : MonoBehaviour
 
     public Image HealthFront;
     public Image HealthBack;
+    private Rigidbody rb;
+    public float stepRate = 1f;
+	public float stepCoolDown;
+	public AudioSource mechFootstep;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         GameObject _HealthFront = GameObject.FindGameObjectWithTag("MechHealthFront");
         GameObject _HealthBack = GameObject.FindGameObjectWithTag("MechHealthBack");
         if (_HealthFront) HealthFront = _HealthFront.GetComponent<Image>();
@@ -28,7 +33,7 @@ public class PlayerMech : MonoBehaviour
 
     void Update()
     {
-        if(!HealthFront || !HealthBack) return;
+        if (!HealthFront || !HealthBack) return;
 
         float fillA = HealthFront.fillAmount;
         float fillB = HealthBack.fillAmount;
@@ -51,6 +56,13 @@ public class PlayerMech : MonoBehaviour
 
             HealthFront.fillAmount = Mathf.Lerp(fillA, hFraction, lerpTimer / _DamageLerp);
             HealthBack.fillAmount = Mathf.Lerp(fillB, hFraction, lerpTimer / _ChipLerp);
+        }
+        
+        stepCoolDown -= Time.deltaTime;
+        if (rb.linearVelocity.magnitude > 0.1f && stepCoolDown <= 0f)
+        {
+            mechFootstep.PlayOneShot(mechFootstep.clip);
+            stepCoolDown = stepRate;
         }
     }
     public void OnHealthChanged(int damage) => lerpTimer = 0;

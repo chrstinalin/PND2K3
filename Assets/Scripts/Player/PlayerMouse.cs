@@ -7,7 +7,8 @@ public class PlayerMouse : MonoBehaviour
     private Image[] HealthPoints;
     public float stepRate = 0.2f;
 	public float stepCoolDown;
-	public AudioSource footStep;
+	public AudioSource mouseFootstep;
+    private Rigidbody rb;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class PlayerMouse : MonoBehaviour
         _health = GetComponent<Health>();
         _health.onHealthChanged.AddListener(OnHealthChanged);
         _health.onDeath.AddListener(OnDeath);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     public void OnHealthChanged(int damage)
@@ -36,10 +39,11 @@ public class PlayerMouse : MonoBehaviour
     public void Update()
     {
         stepCoolDown -= Time.deltaTime;
-		if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCoolDown < 0f){
-            Debug.Log("Playing footsteps");
-			footStep.PlayOneShot (footStep.clip);
-			stepCoolDown = stepRate;
-		}
+
+        if (rb.linearVelocity.magnitude > 0.1f && stepCoolDown < 0f)
+        {
+            mouseFootstep.PlayOneShot(mouseFootstep.clip);
+            stepCoolDown = stepRate;
+        }
     }
 }

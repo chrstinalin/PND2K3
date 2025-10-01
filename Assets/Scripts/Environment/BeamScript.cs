@@ -6,6 +6,8 @@ public class BeamScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Beam Trigger Entered by: " + other.gameObject.name);
+        Debug.Log("MovementState GroundCollider" + playerMovementManager.MouseMovementState.GroundCollider);
         if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
         {
             playerMovementManager.MouseMovementState.setFollowVector(transform.right);
@@ -15,7 +17,11 @@ public class BeamScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        playerMovementManager.MouseMovementState.setFollowVector(null);
+        if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
+        {
+            playerMovementManager.MouseMovementState.setFollowVector(null);
+
+        }
     }
 
 }

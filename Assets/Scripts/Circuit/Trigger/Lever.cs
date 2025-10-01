@@ -8,7 +8,7 @@ public class Lever : TriggerAbstract
     [SerializeField] private bool startOn = false;
 
     [SerializeField] private GameObject mouse;
-    private bool mouseInside = false;
+    private bool mouseInRange = false;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class Lever : TriggerAbstract
 
     private void Update()
     {
-        if (mouseInside && Input.GetButtonDown("Interact"))
+        if (mouseInRange && Input.GetButtonDown("Interact"))
         {
             ToggleLever();
         }
@@ -31,7 +31,7 @@ public class Lever : TriggerAbstract
     {
         if (other.gameObject == mouse)
         {
-            mouseInside = true;
+            mouseInRange = true;
         }
     }
 
@@ -39,7 +39,7 @@ public class Lever : TriggerAbstract
     {
         if (other.gameObject == mouse)
         {
-            mouseInside = true;
+            mouseInRange = true;
         }
     }
 
@@ -47,7 +47,7 @@ public class Lever : TriggerAbstract
     {
         if (other.gameObject == mouse)
         {
-            mouseInside = false;
+            mouseInRange = false;
         }
     }
 

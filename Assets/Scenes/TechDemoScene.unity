@@ -6991,7 +6991,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: abb871e5f7d6b794e95cb750b0a69a8c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -8094,7 +8094,6 @@ GameObject:
   - component: {fileID: 195457869}
   - component: {fileID: 195457872}
   - component: {fileID: 195457871}
-  - component: {fileID: 195457870}
   m_Layer: 0
   m_Name: Wire (3)
   m_TagString: Untagged
@@ -8117,29 +8116,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 803642144}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &195457870
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195457868}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &195457871
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13246,6 +13222,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7535774136938286577, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
   m_PrefabInstance: {fileID: 611006245}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &220787610
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220787581}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 0.00002
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &220944308
 GameObject:
   m_ObjectHideFlags: 0
@@ -15706,7 +15705,6 @@ GameObject:
   - component: {fileID: 489131564}
   - component: {fileID: 489131567}
   - component: {fileID: 489131566}
-  - component: {fileID: 489131565}
   m_Layer: 0
   m_Name: Wire (5)
   m_TagString: Untagged
@@ -15729,29 +15727,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 124646035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &489131565
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489131563}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &489131566
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16041,7 +16016,6 @@ GameObject:
   - component: {fileID: 503112898}
   - component: {fileID: 503112901}
   - component: {fileID: 503112900}
-  - component: {fileID: 503112899}
   m_Layer: 0
   m_Name: Wire (2)
   m_TagString: Untagged
@@ -16064,29 +16038,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1380248194}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &503112899
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503112897}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &503112900
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17034,7 +16985,6 @@ GameObject:
   - component: {fileID: 594688197}
   - component: {fileID: 594688200}
   - component: {fileID: 594688199}
-  - component: {fileID: 594688198}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -17057,29 +17007,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 803642144}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &594688198
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594688196}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &594688199
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17307,6 +17234,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7275317914325388625, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
       insertIndex: -1
       addedObject: {fileID: 220787598}
+    - targetCorrespondingSourceObject: {fileID: 7275317914325388625, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 220787610}
   m_SourcePrefab: {fileID: 100100000, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
 --- !u!1 &617920067
 GameObject:
@@ -17797,7 +17727,6 @@ GameObject:
   - component: {fileID: 647653053}
   - component: {fileID: 647653056}
   - component: {fileID: 647653055}
-  - component: {fileID: 647653054}
   m_Layer: 0
   m_Name: Wire (2)
   m_TagString: Untagged
@@ -17820,29 +17749,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 124646035}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &647653054
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647653052}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &647653055
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18294,7 +18200,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f09653696ab679841bec13795eff0740, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -18646,7 +18552,6 @@ GameObject:
   - component: {fileID: 705930469}
   - component: {fileID: 705930472}
   - component: {fileID: 705930471}
-  - component: {fileID: 705930470}
   m_Layer: 0
   m_Name: Wire (5)
   m_TagString: Untagged
@@ -18669,29 +18574,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1380248194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &705930470
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705930468}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &705930471
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18907,7 +18789,6 @@ GameObject:
   - component: {fileID: 717865942}
   - component: {fileID: 717865945}
   - component: {fileID: 717865944}
-  - component: {fileID: 717865943}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -18930,29 +18811,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1263877836}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &717865943
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717865941}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &717865944
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19696,7 +19554,6 @@ GameObject:
   - component: {fileID: 804932515}
   - component: {fileID: 804932518}
   - component: {fileID: 804932517}
-  - component: {fileID: 804932516}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -19719,29 +19576,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 803642144}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &804932516
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 804932514}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &804932517
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20750,7 +20584,6 @@ GameObject:
   - component: {fileID: 878457883}
   - component: {fileID: 878457886}
   - component: {fileID: 878457885}
-  - component: {fileID: 878457884}
   m_Layer: 0
   m_Name: Wire (4)
   m_TagString: Untagged
@@ -20773,29 +20606,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 124646035}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &878457884
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878457882}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &878457885
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21092,7 +20902,6 @@ GameObject:
   - component: {fileID: 917698901}
   - component: {fileID: 917698904}
   - component: {fileID: 917698903}
-  - component: {fileID: 917698902}
   m_Layer: 0
   m_Name: Wire (1)
   m_TagString: Untagged
@@ -21115,29 +20924,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 803642144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &917698902
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917698900}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &917698903
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21534,7 +21320,6 @@ GameObject:
   - component: {fileID: 1017496153}
   - component: {fileID: 1017496156}
   - component: {fileID: 1017496155}
-  - component: {fileID: 1017496154}
   m_Layer: 0
   m_Name: Wire (4)
   m_TagString: Untagged
@@ -21557,29 +21342,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1380248194}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
---- !u!136 &1017496154
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017496152}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1017496155
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23248,7 +23010,6 @@ GameObject:
   - component: {fileID: 1219882285}
   - component: {fileID: 1219882288}
   - component: {fileID: 1219882287}
-  - component: {fileID: 1219882286}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -23271,29 +23032,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1263877836}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &1219882286
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219882284}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1219882287
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23965,13 +23703,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241753829}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13157015, y: -0, z: -0, w: 0.99130684}
-  m_LocalPosition: {x: -50.68, y: -2.5900002, z: 0.1800003}
+  m_LocalRotation: {x: 0.031475276, y: -0, z: -0, w: 0.99950457}
+  m_LocalPosition: {x: -50.68, y: -2.8, z: -3.65}
   m_LocalScale: {x: 8.789728, y: 9.717045, z: 8.789728}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 374947798}
-  m_LocalEulerAnglesHint: {x: -15.121, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.607, y: 0, z: 0}
 --- !u!65 &1241753831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24531,7 +24269,6 @@ GameObject:
   - component: {fileID: 1286207817}
   - component: {fileID: 1286207820}
   - component: {fileID: 1286207819}
-  - component: {fileID: 1286207818}
   m_Layer: 0
   m_Name: Wire (1)
   m_TagString: Untagged
@@ -24554,29 +24291,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1263877836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1286207818
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286207816}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1286207819
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24755,7 +24469,6 @@ GameObject:
   - component: {fileID: 1319856741}
   - component: {fileID: 1319856744}
   - component: {fileID: 1319856743}
-  - component: {fileID: 1319856742}
   m_Layer: 0
   m_Name: Wire (3)
   m_TagString: Untagged
@@ -24778,29 +24491,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1263877836}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &1319856742
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319856740}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1319856743
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28550,13 +28240,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654852536}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.004251992, y: -0, z: -0, w: 0.999991}
-  m_LocalPosition: {x: -53.3, y: -1.13, z: 2.83}
+  m_LocalRotation: {x: -0.1472334, y: -0, z: -0, w: 0.98910177}
+  m_LocalPosition: {x: -53.3, y: -1.79, z: 0.67}
   m_LocalScale: {x: 10.030959, y: 11.089226, z: 10.030959}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 374947798}
-  m_LocalEulerAnglesHint: {x: -0.487, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -16.933, y: 0, z: 0}
 --- !u!65 &1654852538
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30856,7 +30546,6 @@ GameObject:
   - component: {fileID: 1875329348}
   - component: {fileID: 1875329351}
   - component: {fileID: 1875329350}
-  - component: {fileID: 1875329349}
   m_Layer: 0
   m_Name: Wire (6)
   m_TagString: Untagged
@@ -30879,29 +30568,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1380248194}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
---- !u!136 &1875329349
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875329347}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1875329350
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31701,7 +31367,6 @@ GameObject:
   - component: {fileID: 2005009757}
   - component: {fileID: 2005009760}
   - component: {fileID: 2005009759}
-  - component: {fileID: 2005009758}
   m_Layer: 0
   m_Name: Wire (3)
   m_TagString: Untagged
@@ -31724,29 +31389,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 124646035}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
---- !u!136 &2005009758
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2005009756}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &2005009759
 MeshRenderer:
   m_ObjectHideFlags: 0

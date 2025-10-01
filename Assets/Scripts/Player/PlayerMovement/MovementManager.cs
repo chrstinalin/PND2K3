@@ -44,7 +44,7 @@ public class MovementManager : PlayerMovementManager
         if (IsMouseActive)
         {
             CameraManager.SetFollowEntity(Mouse, _MouseMaxZoom);
-            Mouse.transform.position = Mech.transform.position + Mech.transform.forward * -2;
+            Mouse.GetComponent<Rigidbody>().MovePosition(Mech.transform.position + Mech.transform.forward * -2);
             MechMovementState.UpdateJoyStick(Constant.JOY_RIGHT);
         }
         else

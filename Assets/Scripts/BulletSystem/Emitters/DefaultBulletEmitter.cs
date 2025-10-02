@@ -5,6 +5,7 @@ using UnityEngine;
  */
 public class DefaultBulletEmitter : MonoBehaviour, IBulletEmitter
 {
+    public AudioClip BulletSFX;
     [SerializeField] private GameObject bulletSource;
     public GameObject BulletSource 
     { 
@@ -35,6 +36,6 @@ public class DefaultBulletEmitter : MonoBehaviour, IBulletEmitter
     public virtual void Fire()
     {
         Instantiate(BulletSource, transform.position, transform.rotation);
-        SFXManager.Instance.PlayBulletFire();
+        AudioManager.Instance.PlaySFX(BulletSFX);
     }
 }

@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public class MovementState : PlayerMovementState
@@ -53,9 +52,6 @@ public class MovementState : PlayerMovementState
         _rigidbody = Entity.GetComponent<Rigidbody>();
         _particleSystem = Entity.GetComponent<ParticleSystem>();
 
-        GroundCollider = _entityTransform.Cast<Transform>()
-            .FirstOrDefault(child => child.CompareTag("GroundCollider"))?.gameObject;
-
         _groundCheckTimer = 0f;
     }
 
@@ -98,7 +94,7 @@ public class MovementState : PlayerMovementState
             ProcessDashInput(moveDirection);
         }
         
-        ApplyMovement(moveDirection, manager.SmoothTime);
+        ApplyMovement(moveDirection, Config.SMOOTH_TIME);
     }
 
     /*

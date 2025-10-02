@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DamageReceiver : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<int> onTakeDamage;
+    [NonSerialized] public UnityEvent<int> onTakeDamage = new();
     
     void OnTriggerEnter(Collider other)
     {

@@ -1,15 +1,24 @@
+using System;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class CameraManager : CameraMovementManager
 {
+    public static CameraManager Instance;
+
     GameObject FollowEntity;
-    public GameObject CameraPivot;
-    public Camera Cam;
+    [NonSerialized] public Transform CameraPivot;
+    [NonSerialized] public Camera Cam;
     private float heightOffset;
 
+    void Awake()
+    {
+        Instance = this;
+    }
     public void Start()
     {
+        Cam = gameObject.GetComponent<Camera>();
+        CameraPivot = gameObject.transform.parent.GetComponent<Transform>();
         heightOffset = CameraPivot.transform.position.y;
     }
 
@@ -27,9 +36,9 @@ public class CameraManager : CameraMovementManager
     {
         // Update zoom
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        zoom -= scroll * zoomMultiplier;
-        zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
-        Cam.orthographicSize = Mathf.SmoothDamp(Cam.orthographicSize, zoom, ref velocity, smoothTime);
+        zoom -= scroll * Config.CAMERA_ZOOM_MULTIPLIER;
+        zoom = Mathf.Clamp(zoom, Config.CAMERA_MIN_ZOOM, maxZoom);
+        Cam.orthographicSize = Mathf.SmoothDamp(Cam.orthographicSize, zoom, ref Config.CAMERA_VELOCITY, Config.CAMERA_SMOOTH_TIME);
 
         // Update location
         CameraPivot.transform.position = new Vector3(FollowEntity.transform.position.x,

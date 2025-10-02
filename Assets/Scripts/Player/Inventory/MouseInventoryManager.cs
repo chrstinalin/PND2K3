@@ -9,7 +9,7 @@ public class MouseInventoryManager : InventoryAbstractManager
         if (items == null)
             items = new System.Collections.Generic.List<ItemData>();
 
-        maxNumItems = 1;
+        maxNumItems = Config.MOUSE_INVENTORY_SIZE;
     }
 
     private void OnTriggerEnter(Collider other)

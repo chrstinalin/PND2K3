@@ -6,16 +6,13 @@ public class MovementConfig
     public float MoveSpeed;
     public float JumpForce;
     public float DashSpeed;
-
-    public bool CanJump;
+    public bool CanJump => JumpForce > 0f;
     
-    public MovementConfig(GameObject entity, float moveSpeed, float jumpForce, bool canJump, 
-        float dashSpeed)
+    public MovementConfig(GameObject entity, float moveSpeed, float jumpForce, float dashSpeed)
     {
         Entity = entity;
         MoveSpeed = moveSpeed;
         JumpForce = jumpForce;
-        CanJump = canJump;
         DashSpeed = dashSpeed;
     }
 }

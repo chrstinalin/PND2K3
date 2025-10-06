@@ -1,32 +1,36 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMouse : MonoBehaviour
 {
-    private Health _health;
-    private Image[] HealthPoints;
-    
+    public static PlayerMouse Instance;
+
+    [NonSerialized] public Health Health;
+    [NonSerialized] public DamageReceiver DamageReceiver;
+    [NonSerialized] public MouseInventoryManager InventoryManager;
+
+    [NonSerialized] public GameObject GroundCollider;
+
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
-        GameObject HealthPointContainer = GameObject.FindGameObjectWithTag("MouseHealthPointContainer");
-        if (HealthPointContainer) HealthPoints = HealthPointContainer.GetComponentsInChildren<Image>();
-        _health = GetComponent<Health>();
-        _health.onHealthChanged.AddListener(OnHealthChanged);
-        _health.onDeath.AddListener(OnDeath);
+        InventoryManager = gameObject.AddComponent<MouseInventoryManager>();
+        DamageReceiver = gameObject.AddComponent<DamageReceiver>();
+        GroundCollider = GameObject.FindGameObjectWithTag("MouseGroundCollider");
+
+        // Init Health
+        Health = gameObject.GetComponent<Health>();
+        Health.onDeath.AddListener(OnDeath);
+        DamageReceiver.onTakeDamage.AddListener(Health.TakeDamage);
     }
     
-    public void OnHealthChanged(int damage)
-    {
-        for (int i = 0; i < _health.GetMaxHealth(); i++)
-        {
-            HealthPoints[i].enabled = i <= _health.GetCurrHealth() - 1;
-        }
-    }
-
     public void OnDeath()
     {
         Debug.Log("Player Died. Respawning...");
         transform.position = new Vector3(0, 1, 0);
-        _health.Heal(_health.GetMaxHealth());
+        Health.Heal(Health.GetMaxHealth());
     }
 }

@@ -2,22 +2,21 @@ using UnityEngine;
 
 public class BeamScript : MonoBehaviour
 {
-    public PlayerMovementManager playerMovementManager;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
+        if (other.gameObject == PlayerMouse.Instance.GroundCollider)
         {
-            playerMovementManager.MouseMovementState.setFollowVector(transform.right);
+            MovementManager.Instance.MouseMovementState.setFollowVector(transform.right);
 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == playerMovementManager.MouseMovementState.GroundCollider)
+        if (other.gameObject == PlayerMouse.Instance.GroundCollider)
         {
-            playerMovementManager.MouseMovementState.setFollowVector(null);
+            MovementManager.Instance.MouseMovementState.setFollowVector(null);
 
         }
     }

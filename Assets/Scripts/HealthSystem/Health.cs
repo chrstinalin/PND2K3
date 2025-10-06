@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 3;
-    [SerializeField] private int currHealth;
-    
-    [SerializeField] public UnityEvent<int> onHealthChanged;
-    [SerializeField] public UnityEvent onDeath;
+    [NonSerialized] private int maxHealth = 3;
+    [NonSerialized] private int currHealth;
+
+    [NonSerialized] public UnityEvent<int> onMaxedHealth = new();
+    [NonSerialized] public UnityEvent<int> onHealthChanged = new();
+    [NonSerialized] public UnityEvent onDeath = new();
 
     public int GetCurrHealth() => currHealth;
     public int GetMaxHealth() => maxHealth;
@@ -34,7 +36,9 @@ public class Health : MonoBehaviour
         Debug.Log($"Gained {healAmount} damage. Health: {currHealth}/{maxHealth}");
 
         currHealth = Mathf.Clamp(currHealth + healAmount, 0, maxHealth);
+        
         onHealthChanged.Invoke(currHealth);
+        if(currHealth == maxHealth) onMaxedHealth.Invoke(currHealth);
 
         Debug.Log($"Health: {currHealth}/{maxHealth}");
     }

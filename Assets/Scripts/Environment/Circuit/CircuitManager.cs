@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CircuitController : MonoBehaviour
+public class CircuitManager : MonoBehaviour
 {
     [SerializeField] private List<TriggerAbstract> triggerList = new List<TriggerAbstract>();
     [SerializeField] private List<TriggerableAbstract> triggerableList = new List<TriggerableAbstract>();
 
     public HashSet<TriggerAbstract> Triggers { get; private set; }
     public HashSet<TriggerableAbstract> Triggerables { get; private set; }
+
+    public static CircuitManager Instance;
 
     void Awake()
     {
@@ -25,7 +27,7 @@ public class CircuitController : MonoBehaviour
             if (allActive != t.IsOn)
             {
                 if (allActive) t.TurnOn();
-                else           t.TurnOff();
+                else t.TurnOff();
             }
         }
     }

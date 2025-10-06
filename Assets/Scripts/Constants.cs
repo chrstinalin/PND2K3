@@ -1,6 +1,32 @@
 using System;
 using UnityEngine;
 
+public static class Config
+{
+    public static float MECH_MOVE_SPEED = 4;
+    public static float MOUSE_MOVE_SPEED = 8;
+
+    public static float MECH_JUMP_FORCE = 0f;
+    public static float MOUSE_JUMP_FORCE = 5f;
+
+    public static float MECH_DASH_SPEED = 30f;
+    public static float MOUSE_DASH_SPEED = 40f;
+
+    public static int MECH_INVENTORY_SIZE = 3;
+    public static int MOUSE_INVENTORY_SIZE = 1;
+
+    public static float MECH_ENTER_DISTANCE = 2.5f;
+    public static float SMOOTH_TIME = 0.05f;
+
+    public static float CAMERA_ZOOM_MULTIPLIER = 4f;
+    public static float CAMERA_MIN_ZOOM = 1f;
+    public static float CAMERA_MAX_ZOOM = 10f;
+    public static float CAMERA_VELOCITY = 0f;
+    public static float CAMERA_SMOOTH_TIME = 0.25f;
+}
+
+
+
 public static class Constant
 {
     // Joystick Axes Constants

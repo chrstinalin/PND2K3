@@ -3,25 +3,24 @@ using UnityEngine;
 
 public class MechaInventoryManager : InventoryAbstractManager
 {
-    public GameObject Mouse;
 
     private void Awake()
     {
         if (items == null)
             items = new List<ItemData>();
 
-        maxNumItems = 0; // No limit
+        maxNumItems = Config.MECH_INVENTORY_SIZE;
     }
 
     private void Update()
     {
-        if (Mouse == null) return;
+        if (PlayerMouse.Instance == null) return;
 
-        MouseInventoryManager mouseInventory = Mouse.GetComponent<MouseInventoryManager>();
+        MouseInventoryManager mouseInventory = PlayerMouse.Instance.InventoryManager;
         if (mouseInventory == null) return;
 
         // Condition 1: Mouse is inactive
-        if (!Mouse.activeInHierarchy && mouseInventory.items.Count > 0)
+        if (!PlayerMouse.Instance.gameObject.activeInHierarchy && mouseInventory.items.Count > 0)
         {
             TransferItem(mouseInventory);
         }

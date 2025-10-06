@@ -1,56 +1,30 @@
 using UnityEngine;
-using UnityEngine.UI; // Use Unity UI
-using System.Text;
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class InventoryUIManager : MonoBehaviour
 {
-    [Header("Mouse Inventory UI")]
     public MouseInventoryManager mouseInventory;
     public Image mouseItemImage;
 
-    [Header("Mecha Inventory UI")]
-    public MechaInventoryManager mechaInventory;
-    public Image[] mechItemImage;
-
-    public Text mechaInventoryText;
-
     private void Update()
     {
-        GameObject MechInventoryContainer = GameObject.FindGameObjectWithTag("MechInventoryContainer");
-        if (MechInventoryContainer) mechItemImage = MechInventoryContainer.GetComponentsInChildren<Image>();
-
-
         UpdateMouseUI();
-        UpdateMechaUI();
     }
 
     private void UpdateMouseUI()
     {
         if (mouseInventory == null || mouseItemImage == null) return;
 
-        if (mouseInventory.items.Count > 0 && mouseInventory.items[0].icon != null)
+        ScrapCurrency carried = mouseInventory.GetCarriedItem();
+        if (carried != null)
         {
-            mouseItemImage.sprite = mouseInventory.items[0].icon;
+            mouseItemImage.sprite = carried.icon;
+            mouseItemImage.enabled = true;
         }
         else
         {
+            mouseItemImage.enabled = false;
             mouseItemImage.sprite = null;
         }
     }
-
-    private void UpdateMechaUI()
-    {
-        if (mechaInventory == null || mechaInventoryText == null) return;
-
-        if (mechaInventory.items != null && mechaInventory.items.Count > 0)
-        {
-            for (int i = 0; i < mechaInventory.items.Count; i++)
-            {
-                var item = mechaInventory.items[i];
-                mechItemImage[i].sprite = item.icon;
-            }
-        }
-    }
-
 }

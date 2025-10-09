@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3223122214677556415}
   m_Layer: 5
   m_Name: MouseHealthBar
-  m_TagString: Untagged
+  m_TagString: MouseHealthPointContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 7915656436995832008}
   m_Layer: 5
   m_Name: HealthBack
-  m_TagString: Untagged
+  m_TagString: MechHealthBack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 7577511688284005192}
   m_Layer: 5
   m_Name: HealthFront
-  m_TagString: Untagged
+  m_TagString: MechHealthFront
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 456707071450963944}
   m_Layer: 5
   m_Name: MechInventory
-  m_TagString: Untagged
+  m_TagString: MechInventoryContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1064,8 +1064,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58057be93c9b4bd42843d98fcb52efab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
-  mouseInventory: {fileID: 0}
-  mouseItemImage: {fileID: 4750737272626576719}
-  mechaInventory: {fileID: 0}
-  mechItemImage: []
-  mechaInventoryText: {fileID: 0}

@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class MechaInventoryManager : MonoBehaviour
 {
-    public GameObject Mouse;
-    public Health health;
+    private Health mechHealth;
+    private MouseInventoryManager mouseInventory;
+    private PlayerMouse mouse;
+
+    private void Awake()
+    {
+        mouse = PlayerMouse.Instance;
+        mechHealth = PlayerMech.Instance.GetComponent<Health>();
+    }
 
     private void Update()
     {
-        if (Mouse == null) return;
-
-        var mouseInventory = Mouse.GetComponent<MouseInventoryManager>();
+        if (mouse == null) return;
         if (mouseInventory == null) return;
 
         // Auto-transfer if Mouse is inactive
-        if (!Mouse.activeInHierarchy && mouseInventory.HasItem())
+        if (!mouse.gameObject.activeInHierarchy && mouseInventory.HasItem())
         {
             TakeFromMouse(mouseInventory);
         }
@@ -21,31 +26,27 @@ public class MechaInventoryManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var mouseInventory = other.GetComponentInParent<MouseInventoryManager>();
-        if (mouseInventory != null && mouseInventory.HasItem())
+        var otherInventory = other.GetComponentInParent<MouseInventoryManager>();
+        if (otherInventory != null && otherInventory.HasItem())
         {
-            TakeFromMouse(mouseInventory);
+            TakeFromMouse(otherInventory);
         }
     }
 
-    private void TakeFromMouse(MouseInventoryManager mouseInventory)
+    private void TakeFromMouse(MouseInventoryManager sourceInventory)
     {
-        if (!mouseInventory.HasItem()) return;
+        if (!sourceInventory.HasItem()) return;
 
-        ScrapCurrency scrap = mouseInventory.GetCarriedItem();
+        ScrapCurrency scrap = sourceInventory.GetCarriedItem();
         if (scrap != null)
         {
-            // Heal Mecha
-            if (health != null)
+            if (mechHealth != null)
             {
-                health.Heal(scrap.HPRestoreAmount);
+                mechHealth.Heal(scrap.HPRestoreAmount);
             }
 
-            // Destroy scrap object game object
             Destroy(scrap.gameObject);
-
-            // Remove from Mouse inventory
-            mouseInventory.RemoveCarriedItem();
+            sourceInventory.RemoveCarriedItem();
         }
     }
 }

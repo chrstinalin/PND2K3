@@ -3,8 +3,8 @@ using UnityEngine;
 public class MouseInventoryManager : MonoBehaviour
 {
     private ScrapCurrency nearbyItem;
-    public ScrapCurrency carriedItem;
-    public Transform carryPoint;
+    [HideInInspector] public ScrapCurrency carriedItem;
+    private Transform carryPoint;
 
     private void Awake()
     {

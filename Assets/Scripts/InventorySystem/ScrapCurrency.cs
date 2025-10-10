@@ -4,8 +4,6 @@ public class ScrapCurrency : MonoBehaviour
 {
     public int HPRestoreAmount;
 
-    public Sprite icon;
-
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 

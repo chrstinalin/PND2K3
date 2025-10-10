@@ -4,6 +4,12 @@ public class MouseInventoryManager : MonoBehaviour
 {
     private ScrapCurrency nearbyItem;
     public ScrapCurrency carriedItem;
+    public Transform carryPoint;
+
+    private void Awake()
+    {
+        carryPoint = transform.Find("CarryPoint");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -41,17 +47,31 @@ public class MouseInventoryManager : MonoBehaviour
     private void PickUpItem(ScrapCurrency item)
     {
         carriedItem = item;
-        carriedItem.Collect();
         nearbyItem = null;
+
+        item.transform.SetParent(carryPoint);
+
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.identity;
+
+        item.transform.localScale = Vector3.one * 0.5f;
+
         Debug.Log("Mouse picked up: " + item.name);
     }
+
 
     private void DropItem()
     {
         if (carriedItem == null) return;
 
         Vector3 dropPosition = transform.position + transform.forward * 1f;
+
+        carriedItem.transform.SetParent(null);
+
+        carriedItem.transform.localScale = Vector3.one;
+
         carriedItem.Drop(dropPosition);
+
         Debug.Log("Mouse dropped: " + carriedItem.name);
         carriedItem = null;
     }

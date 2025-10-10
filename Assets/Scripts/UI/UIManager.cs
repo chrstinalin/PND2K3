@@ -4,9 +4,6 @@ using UnityEngine.UI; // Use Unity UI
 
 public class UIManager : MonoBehaviour
 {
-    [NonSerialized] public MouseInventoryManager mouseInventory;
-    public Image mouseItemImage;
-
     // Mouse Health UI
     [NonSerialized] private Health MouseHealth;
     [NonSerialized] private Image[] HealthPoints;
@@ -36,8 +33,6 @@ public class UIManager : MonoBehaviour
         MouseHealth = PlayerMouse.Instance.GetComponent<Health>();
         MouseHealth.onHealthChanged.AddListener(OnMouseHealthChanged);
 
-        mouseInventory = PlayerMouse.Instance.GetComponentInChildren<MouseInventoryManager>();
-
         // MECH
         HealthFront = _HealthFront.GetComponent<Image>();
         HealthBack = _HealthBack.GetComponent<Image>();
@@ -48,22 +43,7 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        UpdateMouseInventoryUI();
         updateMechHealthUI();
-    }
-
-    private void UpdateMouseInventoryUI()
-    {
-        if (mouseInventory == null || mouseItemImage == null) return;
-
-        if (mouseInventory.carriedItem != null && mouseInventory.carriedItem.icon != null)
-        {
-            mouseItemImage.sprite = mouseInventory.carriedItem.icon;
-        }
-        else
-        {
-            mouseItemImage.sprite = null;
-        }
     }
 
     private void updateMechHealthUI()

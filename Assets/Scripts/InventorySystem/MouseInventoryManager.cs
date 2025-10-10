@@ -9,6 +9,11 @@ public class MouseInventoryManager : MonoBehaviour
     private void Awake()
     {
         carryPoint = transform.Find("CarryPoint");
+        if (carryPoint == null)
+            Debug.LogError(
+                "A Transform named CarryPoint where the scrap currency " +
+                "appears when carried must be a child of PlayerMouse"
+            );
     }
 
     private void OnTriggerEnter(Collider other)

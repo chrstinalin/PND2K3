@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
         MouseHealth.onHealthChanged.AddListener(OnMouseHealthChanged);
 
         mouseInventory = PlayerMouse.Instance.GetComponentInChildren<MouseInventoryManager>();
-        Debug.Log(mouseInventory);
 
         // MECH
         HealthFront = _HealthFront.GetComponent<Image>();

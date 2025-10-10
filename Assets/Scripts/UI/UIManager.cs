@@ -5,10 +5,7 @@ using UnityEngine.UI; // Use Unity UI
 public class UIManager : MonoBehaviour
 {
     [NonSerialized] public MouseInventoryManager mouseInventory;
-    [NonSerialized] public Image mouseItemImage;
-
-    [NonSerialized] public MechaInventoryManager mechaInventory;
-    [NonSerialized] public Image[] MechItemImage;
+    public Image mouseItemImage;
 
     // Mouse Health UI
     [NonSerialized] private Health MouseHealth;
@@ -25,11 +22,10 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         GameObject HealthPointContainer = GameObject.FindGameObjectWithTag("MouseHealthPointContainer");
-        GameObject MechInventoryContainer = GameObject.FindGameObjectWithTag("MechInventoryContainer");
         GameObject _HealthFront = GameObject.FindGameObjectWithTag("MechHealthFront");
         GameObject _HealthBack = GameObject.FindGameObjectWithTag("MechHealthBack");
 
-        if(!HealthPointContainer || ! MechInventoryContainer || !_HealthFront || !_HealthBack)
+        if(!HealthPointContainer || !_HealthFront || !_HealthBack)
         {
             Debug.LogError("UI elements not found.");
         }
@@ -40,9 +36,10 @@ public class UIManager : MonoBehaviour
         MouseHealth = PlayerMouse.Instance.GetComponent<Health>();
         MouseHealth.onHealthChanged.AddListener(OnMouseHealthChanged);
 
-        // MECH
+        mouseInventory = PlayerMouse.Instance.GetComponentInChildren<MouseInventoryManager>();
+        Debug.Log(mouseInventory);
 
-        MechItemImage = MechInventoryContainer.GetComponentsInChildren<Image>();
+        // MECH
         HealthFront = _HealthFront.GetComponent<Image>();
         HealthBack = _HealthBack.GetComponent<Image>();
 
@@ -53,7 +50,6 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         UpdateMouseInventoryUI();
-        UpdateMechaInventoryUI();
         updateMechHealthUI();
     }
 
@@ -61,26 +57,13 @@ public class UIManager : MonoBehaviour
     {
         if (mouseInventory == null || mouseItemImage == null) return;
 
-        if (mouseInventory.items.Count > 0 && mouseInventory.items[0].icon != null)
+        if (mouseInventory.carriedItem != null && mouseInventory.carriedItem.icon != null)
         {
-            mouseItemImage.sprite = mouseInventory.items[0].icon;
+            mouseItemImage.sprite = mouseInventory.carriedItem.icon;
         }
         else
         {
             mouseItemImage.sprite = null;
-        }
-    }
-
-    private void UpdateMechaInventoryUI()
-    {
-        if (mechaInventory == null) return;
-        if (mechaInventory.items != null && mechaInventory.items.Count > 0)
-        {
-            for (int i = 0; i < mechaInventory.items.Count; i++)
-            {
-                var item = mechaInventory.items[i];
-                MechItemImage[i].sprite = item.icon;
-            }
         }
     }
 

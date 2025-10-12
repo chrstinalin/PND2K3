@@ -44,7 +44,9 @@ public class MovementManager : PlayerMovementManager
 
     void Update()
     {
-        if(isLockedMovement) return;
+        CameraManager.UpdateCamera();
+
+        if (isLockedMovement) return;
 
         if (IsMouseActive)
         {
@@ -56,7 +58,6 @@ public class MovementManager : PlayerMovementManager
             MechMovementState.UpdateState(this, !IsMouseActive);
             MechAIController.SetTarget(null);
         }
-        CameraManager.UpdateCamera();
 
         if (Input.GetButtonDown("MountKey"))
         {

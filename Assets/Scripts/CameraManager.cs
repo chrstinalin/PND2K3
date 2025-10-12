@@ -31,7 +31,7 @@ public class CameraManager : CameraMovementManager
         Cam.fieldOfView = Mathf.SmoothDamp(Cam.fieldOfView, targetFOV, ref fovVelocity, Config.CAMERA_SMOOTH_TIME);
     }
 
-    public override void SetFollowEntity(GameObject entity, float? newZoom)
+    public override void SetFollowEntity(GameObject? entity, float? newZoom)
     {
         this.FollowEntity = entity;
         if(newZoom.HasValue)

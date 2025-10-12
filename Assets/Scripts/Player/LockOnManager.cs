@@ -50,6 +50,7 @@ public class LockOnManager : MonoBehaviour
             navMeshEdgeVisualizer.ClearFilledArea();
         }
         ToggleEnemyOutlines(isLocked);
+        PlayerMarker.Instance.setActive(isLocked);
     }
 
     private void ToggleEnemyOutlines(bool enable)

@@ -30,6 +30,11 @@ public static class Config
     public static float MECH_MAX_ZOOM = 10f;
 
     public static float MIN_AI_DISTANCE = 5f;
+
+    public static float PLAYER_MARKER_MOVE_SPEED = MOUSE_MOVE_SPEED;
+    public static float PLAYER_MARKER_GROUND_RAY_HEIGHT = 50f;
+    public static float PLAYER_MARKER_GROUND_SNAP_OFFSET = 0.05f;
+    public static LayerMask PLAYER_MARKER_GROUND_LAYERS = ~0;
 }
 
 public enum AIState

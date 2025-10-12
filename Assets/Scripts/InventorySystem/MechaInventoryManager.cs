@@ -6,7 +6,7 @@ public class MechaInventoryManager : MonoBehaviour
     private MouseInventoryManager mouseInventory;
     private PlayerMouse mouse;
 
-    private void Awake()
+    private void Start()
     {
         mouse = PlayerMouse.Instance;
         mechHealth = PlayerMech.Instance.GetComponent<Health>();

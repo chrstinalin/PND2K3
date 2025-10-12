@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8485813321407716382}
   - component: {fileID: 4713680479719535947}
   - component: {fileID: 8834097524323848069}
+  - component: {fileID: 671358801532199933}
   m_Layer: 0
   m_Name: DestroyableWall
   m_TagString: Untagged
@@ -124,4 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8885249301dc7499f8c463a7922f6c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyableWall
-  WallBreakSFX: {fileID: 0}
+  WallBreakSFX: {fileID: 8300000, guid: 91c9192e985653e4b97bda63ac572075, type: 3}
+--- !u!114 &671358801532199933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5645776635833986661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531e86c305814da0896fbdb7742af7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health

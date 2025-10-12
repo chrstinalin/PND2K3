@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6334068796323356963}
   - component: {fileID: 7314244541752173590}
   - component: {fileID: 340058465855320366}
+  - component: {fileID: 1240025093169134010}
   m_Layer: 0
   m_Name: Mecha
   m_TagString: MechPlayerEntity
@@ -133,41 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531e86c305814da0896fbdb7742af7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 5
-  currHealth: 0
-  onMaxedHealth:
-    m_PersistentCalls:
-      m_Calls: []
-  onHealthChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 879309151578318093}
-        m_TargetAssemblyTypeName: PlayerMech, Assembly-CSharp
-        m_MethodName: OnHealthChanged
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 879309151578318093}
-        m_TargetAssemblyTypeName: PlayerMech, Assembly-CSharp
-        m_MethodName: OnDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!199 &7314244541752173590
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4972,6 +4938,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1240025093169134010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7717143180608074467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854609d9c3e50e74cbb6e308a1369142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechaInventoryManager
 --- !u!1001 &3245284654682067939
 PrefabInstance:
   m_ObjectHideFlags: 0

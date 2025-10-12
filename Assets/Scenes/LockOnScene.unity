@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 970720684379942313, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.19
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 970720684379942313, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -279,6 +279,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1586109560739761133, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586109560739761133, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586109560739761133, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 2770e501c6f370a4184bc721b469c09f, type: 2}
+    - target: {fileID: 5037236417796997901, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7717143180608074467, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
       propertyPath: m_Name
       value: Mecha
@@ -286,7 +302,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7717143180608074467, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1876422235}
   m_SourcePrefab: {fileID: 100100000, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
 --- !u!1 &112141418
 GameObject:
@@ -378,6 +397,10 @@ PrefabInstance:
     - target: {fileID: 7275317914325388625, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
       propertyPath: m_Name
       value: Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465712879545917416, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7535774136938286577, guid: 8353eed475b337745b78cef3f6a61e09, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1182,6 +1205,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1390c92baae76d24d8b67804f809f035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeamScript
+--- !u!1 &1876422225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7717143180608074467, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+  m_PrefabInstance: {fileID: 84541940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1876422235
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876422225}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 2
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2091479346
 PrefabInstance:
   m_ObjectHideFlags: 0

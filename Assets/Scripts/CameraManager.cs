@@ -23,7 +23,7 @@ public class CameraManager : CameraMovementManager
         Cam = gameObject.GetComponent<Camera>();
         CameraPivot = gameObject.transform.parent.GetComponent<Transform>();
         heightOffset = CameraPivot.transform.position.y;
-        targetFOV = Config.CAMERA_LOCK_ON_FOV;
+        targetFOV = Config.CAMERA_DEFAULT_FOV;
     }
 
     void Update()

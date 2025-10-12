@@ -42,6 +42,7 @@ public class LockOnManager : MonoBehaviour
         {
             CameraManager.SetCameraFOV(Config.CAMERA_LOCK_ON_FOV);
             navMeshEdgeVisualizer.ShowFilledArea();
+            MovementManager.Reset();
         }
         else
         {

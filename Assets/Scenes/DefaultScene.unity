@@ -297,6 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 112141419}
+  - component: {fileID: 112141420}
   m_Layer: 0
   m_Name: GlobalManagers
   m_TagString: Untagged
@@ -322,6 +323,18 @@ Transform:
   - {fileID: 686719169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &112141420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112141418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2050f8719b1329a4695cf58b95e7863a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LockOnManager
 --- !u!1001 &148451992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -630,6 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbddf38281abaa4ead608d9052bcd37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  FollowEntity: {fileID: 0}
 --- !u!1001 &763356706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -814,7 +828,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 47642e2a4027c614d8f0065cf5bfe3b3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d78a64aecd4a16a4b89d54a870f73c72, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1117516644
 PrefabInstance:
@@ -1278,6 +1292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6657e173e79046a52f8a6949e9fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementManager
+  isLockedMovement: 0
 --- !u!1001 &6984248053561140166
 PrefabInstance:
   m_ObjectHideFlags: 0

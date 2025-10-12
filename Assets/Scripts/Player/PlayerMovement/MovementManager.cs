@@ -10,6 +10,7 @@ public class MovementManager : PlayerMovementManager
     [NonSerialized] public CameraManager CameraManager;
 
     [NonSerialized] public static MovementManager Instance;
+    [NonSerialized] public MechAIController MechAIController;
 
     private GameObject Mouse;
     private GameObject Mech;
@@ -24,6 +25,7 @@ public class MovementManager : PlayerMovementManager
     void Start()
     {
         CameraManager = CameraManager.Instance;
+        MechAIController = MechAIController.Instance;
 
         Mouse = PlayerMouse.Instance.gameObject;
         Mech = PlayerMech.Instance.gameObject;
@@ -44,8 +46,16 @@ public class MovementManager : PlayerMovementManager
     {
         if(isLockedMovement) return;
 
-        if (IsMouseActive) MouseMovementState.UpdateState(this, true);
-        MechMovementState.UpdateState(this, !IsMouseActive);
+        if (IsMouseActive)
+        {
+            MouseMovementState.UpdateState(this, true);
+            MechAIController.SetTarget(Mouse.gameObject);
+        }
+        else
+        {
+            MechMovementState.UpdateState(this, !IsMouseActive);
+            MechAIController.SetTarget(null);
+        }
         CameraManager.UpdateCamera();
 
         if (Input.GetButtonDown("MountKey"))
@@ -71,5 +81,11 @@ public class MovementManager : PlayerMovementManager
             CameraManager.SetFollowEntity(Mech, Config.MECH_MAX_ZOOM);
             MechMovementState.UpdateJoyStick(Constant.JOY_LEFT);
         }        
+    }
+
+    public override void Reset()
+    {
+        MouseMovementState.Reset();
+        MechMovementState.Reset();
     }
 }

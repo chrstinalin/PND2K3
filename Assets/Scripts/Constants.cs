@@ -28,9 +28,17 @@ public static class Config
 
     public static float MOUSE_MAX_ZOOM = 4f;
     public static float MECH_MAX_ZOOM = 10f;
+
+    public static float MIN_AI_DISTANCE = 5f;
 }
 
-
+public enum AIState
+{
+    Idle,
+    Walk,
+    Attack,
+    Chase
+}
 
 public static class Constant
 {

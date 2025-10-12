@@ -5,6 +5,8 @@ public class PlayerMarker : MonoBehaviour
 {
     [NonSerialized] public static PlayerMarker Instance;
 
+    [NonSerialized] public GameObject Target;
+
     private Joystick _Input = Constant.JOY_LEFT;
     private bool isActive = false;
 
@@ -29,7 +31,6 @@ public class PlayerMarker : MonoBehaviour
             float h = Input.GetAxis(_Input.Horizontal);
             float v = Input.GetAxis(_Input.Vertical);
 
-            // XZ Movement
             Vector3 inputXZ = new Vector3(h, 0f, v);
             Vector3 intended = transform.position + inputXZ.normalized * Config.PLAYER_MARKER_MOVE_SPEED * Time.deltaTime;
 
@@ -91,4 +92,19 @@ public class PlayerMarker : MonoBehaviour
 
         return highestY != float.MinValue;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        var selectable = other.GetComponent<LockOnSelectable>();
+        if (selectable != null) selectable.OnHover(true);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        var selectable = other.GetComponent<LockOnSelectable>();
+        if (selectable != null) selectable.OnHover(false);
+    }
+
+    public void SetTarget(GameObject target) => Target = target;
+
 }

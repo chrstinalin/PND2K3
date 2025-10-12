@@ -15,6 +15,7 @@ TagManager:
   - MouseGroundCollider
   - EnemyBody
   - Environment
+  - MarkerPlayerEntity
   layers:
   - Default
   - TransparentFX

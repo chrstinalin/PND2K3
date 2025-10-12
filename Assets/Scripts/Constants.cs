@@ -22,7 +22,12 @@ public static class Config
     public static float CAMERA_MIN_ZOOM = 1f;
     public static float CAMERA_MAX_ZOOM = 10f;
     public static float CAMERA_VELOCITY = 0f;
-    public static float CAMERA_SMOOTH_TIME = 0.25f;
+    public static float CAMERA_SMOOTH_TIME = 0.15f;
+    public static float CAMERA_LOCK_ON_FOV = 70f;
+    public static float CAMERA_DEFAULT_FOV = 50f;
+
+    public static float MOUSE_MAX_ZOOM = 4f;
+    public static float MECH_MAX_ZOOM = 10f;
 }
 
 

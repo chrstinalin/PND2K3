@@ -4,8 +4,9 @@ using UnityEngine;
 public class PlayerMarker : MonoBehaviour
 {
     [NonSerialized] public static PlayerMarker Instance;
-
     [NonSerialized] public GameObject Target;
+
+    public event Action<GameObject> OnTargetChanged;
 
     private Joystick _Input = Constant.JOY_LEFT;
     private bool isActive = false;
@@ -105,6 +106,11 @@ public class PlayerMarker : MonoBehaviour
         if (selectable != null) selectable.OnHover(false);
     }
 
-    public void SetTarget(GameObject target) => Target = target;
+    public void SetTarget(GameObject target)
+    {
+        if (Target == target) return;
+        Target = target;
+        OnTargetChanged?.Invoke(Target);
+    }
 
 }

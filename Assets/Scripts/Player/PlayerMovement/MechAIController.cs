@@ -22,11 +22,14 @@ public class MechAIController : MonoBehaviour, IOffense
     {
         Agent = GetComponent<NavMeshAgent>();
         CurrentState = AIState.Idle;
+        PlayerMarker.Instance.OnTargetChanged += SetTarget;
     }
 
     void Update()
     {
         if (Target == null) return;
+
+        Debug.Log("Current Target: " + Target);
 
         Vector3 targetPos = Target.transform.position;
         float distance = Vector3.Distance(transform.position, targetPos);
@@ -41,7 +44,15 @@ public class MechAIController : MonoBehaviour, IOffense
                     break;
                 case AIState.Walk:
                     Agent.isStopped = false;
-                    destination = targetPos - (targetPos - transform.position).normalized * Config.MIN_AI_DISTANCE;
+
+                    if (distance > Config.MIN_AI_DISTANCE)
+                        destination = targetPos - (targetPos - transform.position).normalized * Config.MIN_AI_DISTANCE;
+                    else
+                    {
+                        Vector3 lookDirection = (targetPos - transform.position).normalized;
+                        lookDirection.y = 0;
+                        if (lookDirection != Vector3.zero) transform.rotation = Quaternion.LookRotation(lookDirection);
+                    }
                     Agent.SetDestination(destination);
                     break;
                 case AIState.Attack:

@@ -51,7 +51,7 @@ public class MovementManager : PlayerMovementManager
         if (IsMouseActive)
         {
             MouseMovementState.UpdateState(this, true);
-            MechAIController.SetTarget(Mouse.gameObject);
+            if(!MechAIController.Target) MechAIController.SetTarget(Mouse.gameObject);
         }
         else
         {

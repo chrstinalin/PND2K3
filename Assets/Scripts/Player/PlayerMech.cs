@@ -8,6 +8,8 @@ public class PlayerMech : MonoBehaviour
     [NonSerialized] public Health Health;
     [NonSerialized] public DamageReceiver DamageReceiver;
     [NonSerialized] public MechaInventoryManager InventoryManager;
+    [NonSerialized] public MechAIController AIController;
+
 
     void Awake()
     {
@@ -18,6 +20,7 @@ public class PlayerMech : MonoBehaviour
     {
         InventoryManager = gameObject.AddComponent<MechaInventoryManager>();
         DamageReceiver = gameObject.AddComponent<DamageReceiver>();
+        AIController = gameObject.AddComponent<MechAIController>();
 
         Health = gameObject.GetComponent<Health>();
         Health.onDeath.AddListener(OnDeath);

@@ -265,4 +265,11 @@ public class MovementState : PlayerMovementState
      * ========================================================================
      */
     public override void setFollowVector(Vector3? vec) => FollowVector = vec;
+
+    public override void Reset()
+    {
+        _rigidbody.linearVelocity = Vector3.zero;
+        _dashVelocity = Vector3.zero;
+        _currMoveSpeed = 0f;
+    }
 }

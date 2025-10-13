@@ -6,10 +6,13 @@ public class CameraManager : CameraMovementManager
 {
     public static CameraManager Instance;
 
-    GameObject FollowEntity;
+    public GameObject FollowEntity;
     [NonSerialized] public Transform CameraPivot;
     [NonSerialized] public Camera Cam;
     private float heightOffset;
+
+    private float targetFOV;
+    private float fovVelocity;
 
     void Awake()
     {
@@ -20,9 +23,15 @@ public class CameraManager : CameraMovementManager
         Cam = gameObject.GetComponent<Camera>();
         CameraPivot = gameObject.transform.parent.GetComponent<Transform>();
         heightOffset = CameraPivot.transform.position.y;
+        targetFOV = Config.CAMERA_DEFAULT_FOV;
     }
 
-    public override void SetFollowEntity(GameObject entity, float? newZoom)
+    void Update()
+    {
+        Cam.fieldOfView = Mathf.SmoothDamp(Cam.fieldOfView, targetFOV, ref fovVelocity, Config.CAMERA_SMOOTH_TIME);
+    }
+
+    public override void SetFollowEntity(GameObject? entity, float? newZoom)
     {
         this.FollowEntity = entity;
         if(newZoom.HasValue)
@@ -49,4 +58,6 @@ public class CameraManager : CameraMovementManager
     public override void PanTo(float zoomSize) => zoom = zoomSize;
 
     public override void SetMaxZoom(float max) => maxZoom = max;
+
+    public void SetCameraFOV(float newFOV) => targetFOV = newFOV;
 }

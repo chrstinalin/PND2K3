@@ -10,19 +10,12 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
     public EnemyVisionAbstractManager VisionManager;
     private NavMeshAgent Agent;
 
-    [SerializeField] private float MinDistanceFromPlayer = 5f;
     [SerializeField] private GameObject[] WayPoints;
     private GameObject ChaseEntity;
     private bool AttackActive = false;
     private int CurrentIndex = 0;
 
     private AIState CurrentState;
-    private enum AIState
-    {
-        Walk,
-        Attack,
-        Chase
-    }
 
     void Start()
     {
@@ -87,9 +80,9 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
             Vector3 targetPos = ChaseEntity.transform.position;
             float distance = Vector3.Distance(transform.position, targetPos);
             Vector3 destination = transform.position;
-            if (distance > MinDistanceFromPlayer)
+            if (distance > Config.MIN_AI_DISTANCE)
             {
-                destination = targetPos - (targetPos - transform.position).normalized * MinDistanceFromPlayer;
+                destination = targetPos - (targetPos - transform.position).normalized * Config.MIN_AI_DISTANCE;
             }
             else
             {

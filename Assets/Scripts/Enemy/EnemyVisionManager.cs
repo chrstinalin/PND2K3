@@ -11,10 +11,19 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
     private float MouseDetectAngle = 20;
     private float MechDetectAngle = 40;
 
+    private float mouseFadeStartDistance = 30f;
+    private float mechFadeStartDistance = 50f;
+    private float fadeSpeed = 3f;
+    private float mouseAlpha = 0f;
+    private float mechAlpha = 0f;
+
+    private MovementManager movementManager;
+
     private void Start()
     {
         Mouse = GameObject.FindWithTag("MousePlayerEntity");
         Mech = GameObject.FindWithTag("MechPlayerEntity");
+        movementManager = MovementManager.Instance;
     }
 
     public override void InitVision()
@@ -22,11 +31,52 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
         InitConeRenderer(MechConeRenderer);
         InitConeRenderer(MouseConeRenderer);
     }
+    
     public override void UpdateVision()
     {
         CheckPlayerInRange();
-        DrawVisionCone(MouseConeRenderer, MouseDetectAngle, MouseDetectRange);
-        DrawVisionCone(MechConeRenderer, MechDetectAngle, MechDetectRange);
+        
+        float mouseDistance = Vector3.Distance(transform.position, Mouse.transform.position);
+        float mechDistance = Vector3.Distance(transform.position, Mech.transform.position);
+        
+        bool showMouseCone = false;
+        bool showMechCone = false;
+        
+        if (movementManager != null && movementManager.IsMouseActive && MouseInRange)
+        {
+            showMouseCone = true;
+        }
+        
+        if (MechInRange)
+        {
+            showMechCone = true;
+        }
+        
+        float targetMouseAlpha = showMouseCone ? CalculateFadeAlpha(mouseDistance, MouseDetectRange, mouseFadeStartDistance) : 0f;
+        float targetMechAlpha = showMechCone ? CalculateFadeAlpha(mechDistance, MechDetectRange, mechFadeStartDistance) : 0f;
+        
+        mouseAlpha = Mathf.Lerp(mouseAlpha, targetMouseAlpha, Time.deltaTime * fadeSpeed);
+        mechAlpha = Mathf.Lerp(mechAlpha, targetMechAlpha, Time.deltaTime * fadeSpeed);
+        
+        if (mouseAlpha > 0.01f)
+        {
+            UpdateConeAlpha(MouseConeRenderer, mouseAlpha);
+            DrawVisionCone(MouseConeRenderer, MouseDetectAngle, MouseDetectRange);
+        }
+        else
+        {
+            MouseConeRenderer.enabled = false;
+        }
+        
+        if (mechAlpha > 0.01f)
+        {
+            UpdateConeAlpha(MechConeRenderer, mechAlpha);
+            DrawVisionCone(MechConeRenderer, MechDetectAngle, MechDetectRange);
+        }
+        else
+        {
+            MechConeRenderer.enabled = false;
+        }
     }
 
     private void InitConeRenderer(LineRenderer renderer)
@@ -37,6 +87,33 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
         renderer.endColor = ConeColor;
         renderer.loop = true;
     }
+    
+    private float CalculateFadeAlpha(float distance, float maxRange, float fadeStartDist)
+    {
+        if (distance >= fadeStartDist)
+        {
+            return 0f;
+        }
+        else if (distance <= maxRange * 0.5f)
+        {
+            return 1f;
+        }
+        else
+        {
+            return 1f - Mathf.InverseLerp(maxRange * 0.5f, fadeStartDist, distance);
+        }
+    }
+    
+    private void UpdateConeAlpha(LineRenderer renderer, float alpha)
+    {
+        Color startColor = ConeColor;
+        Color endColor = ConeColor;
+        startColor.a = alpha;
+        endColor.a = alpha;
+        renderer.startColor = startColor;
+        renderer.endColor = endColor;
+    }
+    
     public void CheckPlayerInRange()
     {
         RaycastHit MouseHit, MechHit;
@@ -67,6 +144,7 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
 
     void DrawVisionCone(LineRenderer renderer, float angle, float range)
     {
+        renderer.enabled = true;
         Vector3 origin = transform.position;
         Vector3 forward = transform.forward;
         renderer.SetPosition(0, origin);

@@ -1189,6 +1189,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8819493345059424479, guid: 4be650896d3950241ae4fca08409081e, type: 3}
+      propertyPath: fadeSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819493345059424479, guid: 4be650896d3950241ae4fca08409081e, type: 3}
+      propertyPath: fadeStartDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819493345059424479, guid: 4be650896d3950241ae4fca08409081e, type: 3}
+      propertyPath: mechFadeStartDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819493345059424479, guid: 4be650896d3950241ae4fca08409081e, type: 3}
+      propertyPath: mouseFadeStartDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 9223242047111492838, guid: 4be650896d3950241ae4fca08409081e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.63

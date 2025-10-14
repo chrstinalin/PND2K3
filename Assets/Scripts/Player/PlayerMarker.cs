@@ -125,7 +125,6 @@ public class PlayerMarker : MonoBehaviour
 
     public void SetTarget(GameObject target)
     {
-        if (Target == target) return;
         Target = target;
         OnTargetChanged?.Invoke(Target);
     }

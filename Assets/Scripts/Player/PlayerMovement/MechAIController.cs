@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +11,7 @@ public class MechAIController : MonoBehaviour, IOffense
     private AIState CurrentState;
 
     private bool AttackActive = false;
+
     void Awake()
     {
         Instance = this;
@@ -32,34 +31,49 @@ public class MechAIController : MonoBehaviour, IOffense
         Debug.Log("Current Target: " + Target);
 
         Vector3 targetPos = Target.transform.position;
-        float distance = Vector3.Distance(transform.position, targetPos);
-        Vector3 destination = transform.position;
-        if (distance > Config.MIN_AI_DISTANCE) CurrentState = AIState.Walk;
-        else CurrentState = AIState.Idle;
+        Vector3 directionToTarget = targetPos - transform.position;
+        directionToTarget.y = 0;
+        float distance = directionToTarget.magnitude;
+
+        bool isLockOnSelectable = Target.GetComponent<LockOnSelectable>() != null;
+
+        if (directionToTarget != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(directionToTarget);
+
+        if (isLockOnSelectable)
+        {
+            CurrentState = (distance > Config.MIN_AI_DISTANCE) ? AIState.Walk : AIState.Idle;
+        }
+        else
+        {
+            CurrentState = AIState.Walk;
+        }
 
         switch (CurrentState)
-            {
-                case AIState.Idle:
-                    Agent.isStopped = true;
-                    break;
-                case AIState.Walk:
-                    Agent.isStopped = false;
+        {
+            case AIState.Idle:
+                Agent.isStopped = true;
+                Target = null;
+                break;
 
-                    if (distance > Config.MIN_AI_DISTANCE)
-                        destination = targetPos - (targetPos - transform.position).normalized * Config.MIN_AI_DISTANCE;
-                    else
-                    {
-                        Vector3 lookDirection = (targetPos - transform.position).normalized;
-                        lookDirection.y = 0;
-                        if (lookDirection != Vector3.zero) transform.rotation = Quaternion.LookRotation(lookDirection);
-                    }
-                    Agent.SetDestination(destination);
-                    break;
-                case AIState.Attack:
-                    // Attack logic
-                    break;
-            }
+            case AIState.Walk:
+                Agent.isStopped = false;
+
+                Vector3 destination = targetPos;
+                if (isLockOnSelectable && distance > Config.MIN_AI_DISTANCE)
+                {
+                    destination = targetPos - directionToTarget.normalized * Config.MIN_AI_DISTANCE;
+                }
+
+                Agent.SetDestination(destination);
+                break;
+
+            case AIState.Attack:
+                // Attack logic
+                break;
+        }
     }
+
 
     public void SetTarget(GameObject NewTarget)
     {

@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
     
     public void Heal(int healAmount)
     {
-        Debug.Log($"Gained {healAmount} damage. Health: {currHealth}/{maxHealth}");
+        Debug.Log($"Gained {healAmount} health. Health: {currHealth}/{maxHealth}");
 
         currHealth = Mathf.Clamp(currHealth + healAmount, 0, maxHealth);
         

@@ -24,8 +24,14 @@ public class PlayerMech : MonoBehaviour
 
         Health = gameObject.GetComponent<Health>();
         Health.onDeath.AddListener(OnDeath);
-        DamageReceiver.onTakeDamage.AddListener(Health.TakeDamage);
+        DamageReceiver.onTakeDamage.AddListener(TakeDamage);
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Mech took damage...");
+        Health.TakeDamage(damage);
     }
 
     public void OnDeath()

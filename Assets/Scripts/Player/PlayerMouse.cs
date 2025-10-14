@@ -21,15 +21,20 @@ public class PlayerMouse : MonoBehaviour
         DamageReceiver = gameObject.AddComponent<DamageReceiver>();
         GroundCollider = GameObject.FindGameObjectWithTag("MouseGroundCollider");
 
-        // Init Health
         Health = gameObject.GetComponent<Health>();
         Health.onDeath.AddListener(OnDeath);
-        DamageReceiver.onTakeDamage.AddListener(Health.TakeDamage);
+        DamageReceiver.onTakeDamage.AddListener(TakeDamage);
     }
     public GameObject getActivePlayer()
     {
         if(gameObject.activeInHierarchy) return gameObject;
         else return PlayerMech.Instance.gameObject;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Mouse took damage...");
+        Health.TakeDamage(damage);
     }
 
     public void OnDeath()

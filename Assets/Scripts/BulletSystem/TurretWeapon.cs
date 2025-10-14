@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DefaultBulletEmitter : MonoBehaviour
+public class TurretWeapon : MonoBehaviour
 {
     public AudioClip chargeSFX;
     public AudioClip bulletSFX;
@@ -20,15 +20,8 @@ public class DefaultBulletEmitter : MonoBehaviour
     void Start()
     {
         Owner = GetComponent<IOffense>() ?? GetComponentInParent<IOffense>();
-        if (visionManager == null)
-        {
-            visionManager = GetComponent<EnemyVisionManager>() ?? GetComponentInParent<EnemyVisionManager>();
-        }
-        
-        if (shotLineRenderer != null)
-        {
-            shotLineRenderer.enabled = false;
-        }
+        if (visionManager == null) visionManager = GetComponent<EnemyVisionManager>() ?? GetComponentInParent<EnemyVisionManager>();
+        if (shotLineRenderer != null) shotLineRenderer.enabled = false;
     }
 
     void Update()
@@ -44,11 +37,7 @@ public class DefaultBulletEmitter : MonoBehaviour
     private IEnumerator ChargeAndFire()
     {
         isCharging = true;
-        UnityEngine.Debug.Log("Charging to fire");
-        if (chargeSFX != null)
-        {
-            AudioManager.Instance.PlaySFX(chargeSFX);
-        }
+        if (chargeSFX != null) AudioManager.Instance.PlaySFX(chargeSFX);
         yield return new WaitForSeconds(chargeTime);
 
         Fire();
@@ -62,14 +51,9 @@ public class DefaultBulletEmitter : MonoBehaviour
 
         GameObject target = null;
 
-        if (visionManager.MouseIsSpotted)
-        {
-            target = visionManager.Mouse;
-        }
-        else if (visionManager.MechIsSpotted)
-        {
-            target = visionManager.Mech;
-        }
+        if (visionManager.MouseIsSpotted) target = visionManager.Mouse;
+        else if (visionManager.MechIsSpotted) target = visionManager.Mech;
+        
         if (target == null) return;
 
         Vector3 shootFrom = transform.position;
@@ -80,10 +64,10 @@ public class DefaultBulletEmitter : MonoBehaviour
             if (hit.transform == target.transform)
             {
                 AudioManager.Instance.PlaySFX(bulletSFX);
-                Health health = hit.transform.GetComponent<Health>();
-                if (health != null)
+                DamageReceiver damageReceiver = hit.transform.GetComponent<DamageReceiver>();
+                if (damageReceiver != null)
                 {
-                    health.TakeDamage((int)damage);
+                    damageReceiver.ReceiveDamage((int)damage);
                 }
                 StartCoroutine(ShowShot(shootFrom, hit.point));
             }
@@ -99,7 +83,6 @@ public class DefaultBulletEmitter : MonoBehaviour
             shotLineRenderer.SetPosition(1, end);
 
             yield return new WaitForSeconds(shotDisplayTime);
-
             shotLineRenderer.enabled = false;
         }
     }

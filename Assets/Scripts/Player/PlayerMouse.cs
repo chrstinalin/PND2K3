@@ -26,7 +26,12 @@ public class PlayerMouse : MonoBehaviour
         Health.onDeath.AddListener(OnDeath);
         DamageReceiver.onTakeDamage.AddListener(Health.TakeDamage);
     }
-    
+    public GameObject getActivePlayer()
+    {
+        if(gameObject.activeInHierarchy) return gameObject;
+        else return PlayerMech.Instance.gameObject;
+    }
+
     public void OnDeath()
     {
         Debug.Log("Player Died. Respawning...");

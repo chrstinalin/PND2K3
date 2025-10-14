@@ -11,4 +11,5 @@ public abstract class PlayerMovementManager : MonoBehaviour
     [NonSerialized] public bool IsMouseActive;
 
     public abstract void ToggleMouse(bool toggle);
+    public abstract void Reset();
 }

@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7624655161505566775}
+  m_Father: {fileID: 9223242047111492838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &5864995045195241869
 LineRenderer:
@@ -316,6 +316,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 766257020771910595}
+  - {fileID: 3485598496962335737}
   - {fileID: 7624655161505566775}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -350,9 +352,10 @@ GameObject:
   - component: {fileID: 7624655161505566775}
   - component: {fileID: 8819493345059424479}
   - component: {fileID: 5995367760747549583}
+  - component: {fileID: 9212854309758076094}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: EnemyBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -371,8 +374,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3830845489547280054}
-  - {fileID: 766257020771910595}
-  - {fileID: 3485598496962335737}
   - {fileID: 6002803112813986805}
   m_Father: {fileID: 9223242047111492838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -416,6 +417,24 @@ MonoBehaviour:
   rotationAngle: 45
   rotationDuration: 2
   pauseDuration: 3
+--- !u!114 &9212854309758076094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082496355683049882}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7160770206694961771
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +576,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7624655161505566775}
+  m_Father: {fileID: 9223242047111492838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &8498580129164295490
 LineRenderer:

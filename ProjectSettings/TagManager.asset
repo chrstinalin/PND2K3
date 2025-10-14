@@ -12,6 +12,10 @@ TagManager:
   - MechHealthFront
   - MouseHealthPointContainer
   - MechInventoryContainer
+  - MouseGroundCollider
+  - EnemyBody
+  - Environment
+  - MarkerPlayerEntity
   layers:
   - Default
   - TransparentFX

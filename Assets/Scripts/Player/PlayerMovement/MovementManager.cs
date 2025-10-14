@@ -9,13 +9,13 @@ public class MovementManager : PlayerMovementManager
 {
     [NonSerialized] public CameraManager CameraManager;
 
-    public static MovementManager Instance;
+    [NonSerialized] public static MovementManager Instance;
+    [NonSerialized] public MechAIController MechAIController;
 
     private GameObject Mouse;
     private GameObject Mech;
 
-    private float _MouseMaxZoom = 4f;
-    private float _MechMaxZoom = 10f;
+    public bool isLockedMovement;
 
     void Awake()
     {
@@ -25,6 +25,7 @@ public class MovementManager : PlayerMovementManager
     void Start()
     {
         CameraManager = CameraManager.Instance;
+        MechAIController = MechAIController.Instance;
 
         Mouse = PlayerMouse.Instance.gameObject;
         Mech = PlayerMech.Instance.gameObject;
@@ -43,9 +44,20 @@ public class MovementManager : PlayerMovementManager
 
     void Update()
     {
-        if (IsMouseActive) MouseMovementState.UpdateState(this, true);
-        MechMovementState.UpdateState(this, !IsMouseActive);
         CameraManager.UpdateCamera();
+
+        if (isLockedMovement) return;
+
+        if (IsMouseActive)
+        {
+            MouseMovementState.UpdateState(this, true);
+            if(!MechAIController.Target) MechAIController.SetTarget(Mouse.gameObject);
+        }
+        else
+        {
+            MechMovementState.UpdateState(this, !IsMouseActive);
+            MechAIController.SetTarget(null);
+        }
 
         if (Input.GetButtonDown("MountKey"))
         {
@@ -61,14 +73,20 @@ public class MovementManager : PlayerMovementManager
 
         if (IsMouseActive)
         {
-            CameraManager.SetFollowEntity(Mouse, _MouseMaxZoom);
+            CameraManager.SetFollowEntity(Mouse, Config.MOUSE_MAX_ZOOM);
             Mouse.transform.position = Mech.transform.position + Mech.transform.forward * -2;
             MechMovementState.UpdateJoyStick(Constant.JOY_RIGHT);
         }
         else
         {
-            CameraManager.SetFollowEntity(Mech, _MechMaxZoom);
+            CameraManager.SetFollowEntity(Mech, Config.MECH_MAX_ZOOM);
             MechMovementState.UpdateJoyStick(Constant.JOY_LEFT);
         }        
+    }
+
+    public override void Reset()
+    {
+        MouseMovementState.Reset();
+        MechMovementState.Reset();
     }
 }

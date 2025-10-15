@@ -65,6 +65,11 @@ public class PlayerMarker : MonoBehaviour
         CameraManager.Instance.SetFollowEntity(gameObject, null);
         SetChildrenActive(val);
         isActive = val;
+        
+        if (!val)
+        {
+            overlappingSelectables = 0;
+        }
     }
 
     private void SetChildrenActive(bool val)
@@ -106,7 +111,7 @@ public class PlayerMarker : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         var selectable = other.GetComponent<LockOnSelectable>();
-        if (selectable != null)
+        if (selectable != null && selectable.enabled)
         {
             selectable.OnHover(true);
             overlappingSelectables++;
@@ -131,10 +136,8 @@ public class PlayerMarker : MonoBehaviour
 
     private void TryLockOnGround()
     {
-        if (isOverSelectable)
-        {
-            return;
-        }
+        bool actuallyOverSelectable = CheckForActiveSelectables();
+        if (actuallyOverSelectable) return;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas))
@@ -145,11 +148,29 @@ public class PlayerMarker : MonoBehaviour
             }
             groundTarget.transform.position = hit.position;
             SetTarget(groundTarget);
-            Debug.Log("Locked onto ground at: " + hit.position);
         }
-        else
+    }
+
+    private bool CheckForActiveSelectables()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f);
+        int validSelectables = 0;
+        
+        foreach (Collider col in colliders)
         {
-            Debug.Log("Not on a valid NavMesh area.");
+            LockOnSelectable selectable = col.GetComponent<LockOnSelectable>();
+            if (selectable != null && selectable.enabled && selectable.gameObject.activeInHierarchy)
+            {
+                validSelectables++;
+            }
         }
+        overlappingSelectables = validSelectables;
+        return validSelectables > 0;
+    }
+
+    public void ClearTarget()
+    {
+        Target = null;
+        OnTargetChanged?.Invoke(null);
     }
 }

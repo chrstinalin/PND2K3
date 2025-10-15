@@ -19,7 +19,7 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
 
     void Start()
     {
-        WayPoints = GameObject.FindGameObjectsWithTag("PatrolWaypoint");
+        CurrentState = AIState.Walk;
 
         VisionManager = GetComponent<EnemyVisionAbstractManager>();
         VisionManager.InitVision();

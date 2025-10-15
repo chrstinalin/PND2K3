@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5520361583483100006}
   - component: {fileID: 7033557975411423251}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MouseLOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 5882437821290081082}
   - component: {fileID: 5110383828894934477}
   - component: {fileID: 8554991555500687912}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PatrolEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolManager
   VisionManager: {fileID: 0}
-  MinDistanceFromPlayer: 5
   WayPoints: []
 --- !u!114 &5110383828894934477
 MonoBehaviour:
@@ -250,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3496685419162908774}
   - component: {fileID: 7991307499195725806}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MechLOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,6 +389,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5000568791261214450}
     m_Modifications:
+    - target: {fileID: -9111378151613211711, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -442,9 +445,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7914513788236595953, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7555160305344550919, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7498021613877362835, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7278135500965957779, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6074116536986263872, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3215411727515804412, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3201681868809295929, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -111869184255205203, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
       propertyPath: m_Name
       value: Catboss_Raff_v001
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918212603522799326, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578366573511586757, guid: 8115f2a4865d6eb4baade45b8c4f4562, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -46,11 +46,25 @@ public class MovementManager : PlayerMovementManager
     {
         CameraManager.UpdateCamera();
 
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector3 camForward = CameraManager.Cam.transform.forward;
+        camForward.y = 0f;
+        camForward.Normalize();
+
+        Vector3 camRight = CameraManager.Cam.transform.right;
+        camRight.y = 0f;
+        camRight.Normalize();
+
+        Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
+
+
         if (isLockedMovement) return;
 
         if (IsMouseActive)
         {
-            MouseMovementState.UpdateState(this, true);
+            MouseMovementState.UpdateState(this, true, moveDir);
 
             if (Input.GetButton("SummonMecha"))
             {
@@ -64,7 +78,7 @@ public class MovementManager : PlayerMovementManager
         }
         else
         {
-            MechMovementState.UpdateState(this, !IsMouseActive);
+            MechMovementState.UpdateState(this, !IsMouseActive, moveDir);
             MechAIController.SetTarget(null);
         }
 

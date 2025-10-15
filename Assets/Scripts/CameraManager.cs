@@ -56,6 +56,17 @@ public class CameraManager : CameraMovementManager
                                              FollowEntity.transform.position.z);
 
         // Rotate 90 degrees around the mouse
+        // TODO: test with controller
+        float rightStickX = Input.GetAxis("HorizontalRightJoystick"); // from -1 to 1
+        if (rightStickX > 0.8f)
+        {
+            StartCoroutine(RotateAroundTarget(90f));
+        }
+        else if ( rightStickX < -0.8f)
+        {
+            StartCoroutine(RotateAroundTarget(-90f));
+        }
+
         if (Input.GetKeyDown(KeyCode.O))
             StartCoroutine(RotateAroundTarget(-90f));
         else if (Input.GetKeyDown(KeyCode.P))

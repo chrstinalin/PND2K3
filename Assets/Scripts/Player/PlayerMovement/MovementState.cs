@@ -60,7 +60,7 @@ public class MovementState : PlayerMovementState
      * Movement Logic
      * ========================================================================
      */
-    public override void UpdateState(PlayerMovementManager manager, bool isActive)
+    public override void UpdateState(PlayerMovementManager manager, bool isActive, Vector3 direction)
     {
         Vector3 moveDirection;
         float horizontalInput = Input.GetAxis(_Input.Horizontal);
@@ -80,7 +80,7 @@ public class MovementState : PlayerMovementState
         }
         else
         {
-            moveDirection = new Vector3(horizontalInput, 0f, verticalInput);
+            moveDirection = direction;
             _MoveSpeed = _DefaultMoveSpeed;
         }
 

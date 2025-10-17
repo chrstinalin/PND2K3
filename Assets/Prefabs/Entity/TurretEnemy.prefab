@@ -296,6 +296,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9223242047111492838}
   - component: {fileID: 1458941166473661617}
+  - component: {fileID: 2522443489029981126}
+  - component: {fileID: 2143914167897710886}
+  - component: {fileID: 7429966529203997417}
+  - component: {fileID: 5355723420317741870}
   m_Layer: 0
   m_Name: TurretEnemy
   m_TagString: Untagged
@@ -319,6 +323,7 @@ Transform:
   - {fileID: 766257020771910595}
   - {fileID: 3485598496962335737}
   - {fileID: 7624655161505566775}
+  - {fileID: 3830845489547280054}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458941166473661617
@@ -341,6 +346,71 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2522443489029981126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909894609352407742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69072f6e17189ef4da36564641a822ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Turret
+  scrapPilePrefab: {fileID: 4882730935380425600, guid: f94440e2a2173014b9131302a92d933f, type: 3}
+--- !u!114 &2143914167897710886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909894609352407742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c2ecbd843ffc74c93ff55f9c03fcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisionManager
+  Mouse: {fileID: 0}
+  Mech: {fileID: 0}
+  MechConeRenderer: {fileID: 8498580129164295490}
+  MouseConeRenderer: {fileID: 5864995045195241869}
+  MouseIsSpotted: 0
+  MechIsSpotted: 0
+  MouseInRange: 0
+  MechInRange: 0
+  MouseIsHidden: 0
+  MechIsHidden: 0
+  MouseInAngle: 0
+  MechInAngle: 0
+--- !u!114 &7429966529203997417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909894609352407742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c59fc295f4e034cb7c00fdc4f12438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStationaryManager
+  VisionManager: {fileID: 0}
+  rotationAngle: 45
+  rotationDuration: 2
+  pauseDuration: 3
+--- !u!114 &5355723420317741870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909894609352407742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a71a5cc0e94ba54c9da70ad5ff1755d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LockOnSelectable
 --- !u!1 &6082496355683049882
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,12 +420,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7624655161505566775}
-  - component: {fileID: 8819493345059424479}
-  - component: {fileID: 5995367760747549583}
   - component: {fileID: 9212854309758076094}
   - component: {fileID: 911128769324280496}
-  - component: {fileID: 8006907373281727458}
-  - component: {fileID: 5670066171105288104}
   m_Layer: 0
   m_Name: Turret
   m_TagString: EnemyBody
@@ -376,50 +442,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3830845489547280054}
   - {fileID: 6002803112813986805}
   m_Father: {fileID: 9223242047111492838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8819493345059424479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6082496355683049882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c2ecbd843ffc74c93ff55f9c03fcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisionManager
-  Mouse: {fileID: 0}
-  Mech: {fileID: 0}
-  MechConeRenderer: {fileID: 8498580129164295490}
-  MouseConeRenderer: {fileID: 5864995045195241869}
-  MouseIsSpotted: 0
-  MechIsSpotted: 0
-  MouseInRange: 0
-  MechInRange: 0
-  MouseIsHidden: 0
-  MechIsHidden: 0
-  MouseInAngle: 0
-  MechInAngle: 0
---- !u!114 &5995367760747549583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6082496355683049882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c59fc295f4e034cb7c00fdc4f12438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStationaryManager
-  VisionManager: {fileID: 8819493345059424479}
-  rotationAngle: 45
-  rotationDuration: 2
-  pauseDuration: 3
 --- !u!114 &9212854309758076094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,31 +484,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8006907373281727458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6082496355683049882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a71a5cc0e94ba54c9da70ad5ff1755d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LockOnSelectable
---- !u!114 &5670066171105288104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6082496355683049882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69072f6e17189ef4da36564641a822ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Turret
-  scrapPilePrefab: {fileID: 8120636863540370014, guid: 28a4a5d29ea83e141bd98939972d6e7f, type: 3}
 --- !u!1 &7160770206694961771
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7624655161505566775}
+    m_TransformParent: {fileID: 9223242047111492838}
     m_Modifications:
     - target: {fileID: 1705162314469512161, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_Name
@@ -759,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.57
+      value: 1.5699997
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalRotation.w
@@ -767,15 +767,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -808,7 +808,7 @@ PrefabInstance:
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: visionManager
       value: 
-      objectReference: {fileID: 8819493345059424479}
+      objectReference: {fileID: 2143914167897710886}
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: shotDisplayTime
       value: 0.2

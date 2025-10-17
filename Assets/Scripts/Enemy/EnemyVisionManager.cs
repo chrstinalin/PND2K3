@@ -52,8 +52,10 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
             showMechCone = true;
         }
         
-        float targetMouseAlpha = showMouseCone ? CalculateFadeAlpha(mouseDistance, MouseDetectRange, mouseFadeStartDistance) : 0f;
-        float targetMechAlpha = showMechCone ? CalculateFadeAlpha(mechDistance, MechDetectRange, mechFadeStartDistance) : 0f;
+        float targetMouseAlpha = showMouseCone ? CalculateFadeAlpha(mouseDistance, MouseDetectRange, 
+            mouseFadeStartDistance) : 0f;
+        float targetMechAlpha = showMechCone ? CalculateFadeAlpha(mechDistance, MechDetectRange, 
+            mechFadeStartDistance) : 0f;
         
         mouseAlpha = Mathf.Lerp(mouseAlpha, targetMouseAlpha, Time.deltaTime * fadeSpeed);
         mechAlpha = Mathf.Lerp(mechAlpha, targetMechAlpha, Time.deltaTime * fadeSpeed);
@@ -105,42 +107,45 @@ public class EnemyVisionManager : EnemyVisionAbstractManager
         renderer.endColor = endColor;
     }
     
-public void CheckPlayerInRange()
-{
-    if (Mouse == null || Mech == null)
+    public void CheckPlayerInRange()
     {
-        Debug.LogWarning("Mouse or Mech reference is null in EnemyVisionManager!");
-        return;
-    }
-    
-    int layerMask = ~LayerMask.GetMask("Ignore Raycast");
-    
-    RaycastHit MouseHit, MechHit;
+        if (Mouse == null || Mech == null)
+        {
+            Debug.LogWarning("Mouse or Mech reference is null in EnemyVisionManager!");
+            return;
+        }
+        
+        int layerMask = ~LayerMask.GetMask("Ignore Raycast");
+        
+        RaycastHit MouseHit, MechHit;
 
-    if (Physics.Raycast(transform.position, (Mouse.transform.position - transform.position), out MouseHit, Mathf.Infinity, layerMask))
-    {
-        MouseIsHidden = MouseHit.transform != Mouse.transform;
-    }
-    if (Physics.Raycast(transform.position, (Mech.transform.position - transform.position), out MechHit, Mathf.Infinity, layerMask))
-    {
-        MechIsHidden = MechHit.transform != Mech.transform;
-    }
+        if (Physics.Raycast(transform.position, (Mouse.transform.position - transform.position), 
+                out MouseHit, Mathf.Infinity, layerMask))
+        {
+            MouseIsHidden = MouseHit.transform != Mouse.transform && !MouseHit.transform.IsChildOf(Mouse.transform);
+        }
+        
+        if (Physics.Raycast(transform.position, (Mech.transform.position - transform.position), 
+                out MechHit, Mathf.Infinity, layerMask))
+        {
+            MechIsHidden = MechHit.transform != Mech.transform && !MechHit.transform.IsChildOf(Mech.transform);
+        }
 
-    Vector3 MouseDirectionVector = Mouse.transform.position - transform.position;
-    Vector3 MechDirectionVector = Mech.transform.position - transform.position;
-    float MouseAngle = Vector3.SignedAngle(MouseDirectionVector, transform.forward, Vector3.up);
-    float MechAngle = Vector3.SignedAngle(MechDirectionVector, transform.forward, Vector3.up);
+        Vector3 MouseDirectionVector = Mouse.transform.position - transform.position;
+        Vector3 MechDirectionVector = Mech.transform.position - transform.position;
+        float MouseAngle = Vector3.SignedAngle(MouseDirectionVector, transform.forward, Vector3.up);
+        float MechAngle = Vector3.SignedAngle(MechDirectionVector, transform.forward, Vector3.up);
 
-    MouseInAngle = (MouseAngle > -MouseDetectAngle && MouseAngle < MouseDetectAngle);
-    MechInAngle = (MechAngle > -MechDetectAngle && MechAngle < MechDetectAngle);
+        MouseInAngle = (MouseAngle > -MouseDetectAngle && MouseAngle < MouseDetectAngle);
+        MechInAngle = (MechAngle > -MechDetectAngle && MechAngle < MechDetectAngle);
 
-    float mouseDistance = Vector3.Distance(transform.position, Mouse.transform.position);
-    float mechDistance = Vector3.Distance(transform.position, Mech.transform.position);
-    
-    MouseInRange = mouseDistance < MouseDetectRange;
-    MechInRange = mechDistance < MechDetectRange;
+        float mouseDistance = Vector3.Distance(transform.position, Mouse.transform.position);
+        float mechDistance = Vector3.Distance(transform.position, Mech.transform.position);
+        
+        MouseInRange = mouseDistance < MouseDetectRange;
+        MechInRange = mechDistance < MechDetectRange;
 
-    MouseIsSpotted = MouseInRange && MouseInAngle && !MouseIsHidden;
+        MouseIsSpotted = MouseInRange && MouseInAngle && !MouseIsHidden;
         MechIsSpotted = MechInRange && MechInAngle && !MechIsHidden;
     }
 

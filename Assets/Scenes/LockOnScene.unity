@@ -119,23 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &31412100 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8859313552937866692, guid: 87a790dd2a11e3f4eba69ed3843e4931, type: 3}
-  m_PrefabInstance: {fileID: 2091479346}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &31412104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 31412100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a71a5cc0e94ba54c9da70ad5ff1755d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LockOnSelectable
 --- !u!1 &83563940
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +282,14 @@ PrefabInstance:
     - target: {fileID: 1586109560739761133, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435826185661523990, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: chargeTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3726268797426753602, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
+      propertyPath: Agent
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7717143180608074467, guid: ea5546ea7975fa74489cdf1d79b033f6, type: 3}
       propertyPath: m_Name
@@ -718,6 +709,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 112141419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &936786589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120636863540370014, guid: 28a4a5d29ea83e141bd98939972d6e7f, type: 3}
+  m_PrefabInstance: {fileID: 2425681659612748110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1079175570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,13 +1324,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7734121836895323242, guid: 87a790dd2a11e3f4eba69ed3843e4931, type: 3}
+      propertyPath: scrapPilePrefab
+      value: 
+      objectReference: {fileID: 936786589}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8859313552937866692, guid: 87a790dd2a11e3f4eba69ed3843e4931, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 31412104}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a790dd2a11e3f4eba69ed3843e4931, type: 3}
 --- !u!1001 &2095603646
 PrefabInstance:

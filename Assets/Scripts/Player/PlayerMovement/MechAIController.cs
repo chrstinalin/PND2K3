@@ -13,7 +13,6 @@ public class MechAIController : MonoBehaviour, IOffense
     private bool AttackActive = false;
     [SerializeField] private float attackRange = 20f;
     
-    // Retaliation tracking
     private GameObject lastAttacker;
     private float lastAttackTime;
     private float retaliationMemoryDuration = 5f;
@@ -37,7 +36,6 @@ public class MechAIController : MonoBehaviour, IOffense
         }
     }
 
-    // Called when mech takes damage
     public void OnAttackedBy(GameObject attacker)
     {
         if (attacker == null) return;
@@ -52,6 +50,7 @@ public class MechAIController : MonoBehaviour, IOffense
 
     void Update()
     {
+        
         if (Agent == null) return;
         
         if (lastAttacker != null && Time.time - lastAttackTime < retaliationMemoryDuration)
@@ -77,7 +76,7 @@ public class MechAIController : MonoBehaviour, IOffense
             if (CurrentState == AIState.Attack || CurrentState == AIState.Walk)
             {
                 Agent.isStopped = true;
-                Agent.ResetPath(); // Important: Clear the path to stop sliding
+                Agent.ResetPath();
                 CurrentState = AIState.Idle;
             }
             return;
@@ -94,15 +93,12 @@ public class MechAIController : MonoBehaviour, IOffense
 
         if (isEnemy)
         {
-            Debug.Log("Target is enemy. Distance: " + distance + ", Attack range: " + attackRange + ", AttackActive: " + AttackActive);
-    
             if (distance <= attackRange)
             {
                 CurrentState = AIState.Attack;
                 Agent.isStopped = true;
                 Agent.ResetPath();
                 AttackActive = true;
-                Debug.Log("Mech is attacking! AttackActive set to true");
 
                 if (directionToTarget != Vector3.zero)
                 {

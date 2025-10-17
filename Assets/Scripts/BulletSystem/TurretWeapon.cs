@@ -13,21 +13,25 @@ public class TurretWeapon : MonoBehaviour
     private float _timer;
     private bool isCharging = false;
     private float damage = 1f;
-    [SerializeField] private float fireCooldown = 3f;
+    [SerializeField] private float fireCooldown = 2f;
     [SerializeField] private float chargeTime = 1f;
     [SerializeField] private float shotDisplayTime = 0.25f;
 
     void Start()
     {
         Owner = GetComponent<IOffense>() ?? GetComponentInParent<IOffense>();
-        if (visionManager == null) visionManager = GetComponent<EnemyVisionManager>() ?? GetComponentInParent<EnemyVisionManager>();
+        if (visionManager == null) visionManager = GetComponent<EnemyVisionManager>() 
+                                                   ?? GetComponentInParent<EnemyVisionManager>();
+        if (shotLineRenderer == null) shotLineRenderer = GetComponent<LineRenderer>();
         if (shotLineRenderer != null) shotLineRenderer.enabled = false;
     }
 
     void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer >= fireCooldown && Owner != null && Owner.isAttack() && !isCharging)
+    
+        bool canFire = _timer >= fireCooldown && Owner != null && Owner.isAttack() && !isCharging;
+        if (canFire)
         {
             StartCoroutine(ChargeAndFire());
             _timer = 0;
@@ -41,16 +45,14 @@ public class TurretWeapon : MonoBehaviour
         yield return new WaitForSeconds(chargeTime);
 
         Fire();
-
         isCharging = false;
     }
 
     public virtual void Fire()
     {
         if (visionManager == null) return;
-
         GameObject target = null;
-
+        
         if (visionManager.MouseIsSpotted) target = visionManager.Mouse;
         else if (visionManager.MechIsSpotted) target = visionManager.Mech;
     
@@ -59,12 +61,18 @@ public class TurretWeapon : MonoBehaviour
         Vector3 shootFrom = transform.position;
         Vector3 fireDirection = (target.transform.position - shootFrom).normalized;
         RaycastHit hit;
+        
         if (Physics.Raycast(shootFrom, fireDirection, out hit, Mathf.Infinity))
         {
-            if (hit.transform == target.transform)
+            bool hitTarget = hit.transform == target.transform || hit.transform.IsChildOf(target.transform);
+            if (hitTarget)
             {
-                AudioManager.Instance.PlaySFX(bulletSFX);
+                if (bulletSFX != null) AudioManager.Instance.PlaySFX(bulletSFX);
                 DamageReceiver damageReceiver = hit.transform.GetComponent<DamageReceiver>();
+                if (damageReceiver == null)
+                {
+                    damageReceiver = hit.transform.GetComponentInParent<DamageReceiver>();
+                }
                 if (damageReceiver != null)
                 {
                     GameObject damageSource = transform.parent?.gameObject ?? gameObject;

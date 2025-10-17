@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -31,7 +30,6 @@ public class Turret : MonoBehaviour
         if (selectable != null)
         {
             selectable.enabled = false;
-            selectable.OnHover(false);
         }
 
         if (PlayerMarker.Instance != null && PlayerMarker.Instance.Target == gameObject)
@@ -55,9 +53,6 @@ public class Turret : MonoBehaviour
                 scrapComponent.Drop(dropPosition);
             }
         }
-
-        GameObject turretEnemyParent = transform.parent?.gameObject;
-        if (turretEnemyParent != null) Destroy(turretEnemyParent, 0.2f);
-        else Destroy(gameObject, 0.2f);
+        Destroy(gameObject, 0.2f);
     }
 }

@@ -30,8 +30,10 @@ public class MovementManager : PlayerMovementManager
         Mouse = PlayerMouse.Instance.gameObject;
         Mech = PlayerMech.Instance.gameObject;
 
-        MovementConfig MouseConfig = new(Mouse, Config.MOUSE_MOVE_SPEED, Config.MOUSE_JUMP_FORCE, Config.MOUSE_DASH_SPEED);
-        MovementConfig MechConfig = new(Mech, Config.MECH_MOVE_SPEED, Config.MECH_JUMP_FORCE, Config.MECH_DASH_SPEED);
+        MovementConfig MouseConfig = new(Mouse, Config.MOUSE_MOVE_SPEED, Config.MOUSE_JUMP_FORCE, 
+            Config.MOUSE_DASH_SPEED);
+        MovementConfig MechConfig = new(Mech, Config.MECH_MOVE_SPEED, Config.MECH_JUMP_FORCE, 
+            Config.MECH_DASH_SPEED);
 
         MouseMovementState = new MovementState();
         MechMovementState = new MovementState();
@@ -88,7 +90,10 @@ public class MovementManager : PlayerMovementManager
         if (Input.GetButtonDown("MountKey"))
         {
             if (!IsMouseActive) ToggleMouse(true);
-            else if (Vector3.Distance(Mouse.transform.position, Mech.transform.position) < Config.MECH_ENTER_DISTANCE) ToggleMouse(false);
+            else if (Vector3.Distance(Mouse.transform.position, Mech.transform.position) < Config.MECH_ENTER_DISTANCE)
+            {
+                ToggleMouse(false);
+            }
         }
     }
     public override void ToggleMouse(bool toggle)

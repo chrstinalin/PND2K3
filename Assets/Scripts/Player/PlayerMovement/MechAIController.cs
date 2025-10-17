@@ -6,144 +6,192 @@ public class MechAIController : MonoBehaviour, IOffense
 {
     [NonSerialized] public static MechAIController Instance;
 
-    private NavMeshAgent Agent;
+    public NavMeshAgent Agent;
     public GameObject Target;
     private AIState CurrentState;
 
     private bool AttackActive = false;
-    [SerializeField] private float attackRange = 10f;
+    [SerializeField] private float attackRange = 20f;
+    
+    // Retaliation tracking
+    private GameObject lastAttacker;
+    private float lastAttackTime;
+    private float retaliationMemoryDuration = 5f;
 
     void Awake()
     {
         Instance = this;
+        Agent = GetComponent<NavMeshAgent>();
+        if (Agent != null)
+        {
+            Agent.updateRotation = true;
+        }
     }
 
     void Start()
     {
-        Agent = GetComponent<NavMeshAgent>();
-        Agent.updateRotation = true;
         CurrentState = AIState.Idle;
-        PlayerMarker.Instance.OnTargetChanged += SetTarget;
+        if (PlayerMarker.Instance != null)
+        {
+            PlayerMarker.Instance.OnTargetChanged += SetTarget;
+        }
+    }
+
+    // Called when mech takes damage
+    public void OnAttackedBy(GameObject attacker)
+    {
+        if (attacker == null) return;
+        
+        Debug.Log("MechAIController.OnAttackedBy called with attacker: " + attacker.name);
+        
+        lastAttacker = attacker;
+        lastAttackTime = Time.time;
+        
+        SetTarget(attacker);
     }
 
     void Update()
     {
-    if (Agent == null) return;
-    
-    if (Target == null)
-    {
-        AttackActive = false;
-        if (CurrentState == AIState.Attack || CurrentState == AIState.Walk)
+        if (Agent == null) return;
+        
+        if (lastAttacker != null && Time.time - lastAttackTime < retaliationMemoryDuration)
         {
-            Agent.isStopped = true;
-            CurrentState = AIState.Idle;
-        }
-        return;
-    }
-
-    Vector3 targetPos = Target.transform.position;
-    Vector3 directionToTarget = targetPos - transform.position;
-    directionToTarget.y = 0;
-    float distance = directionToTarget.magnitude;
-
-    bool isPlayerMouse = Target == PlayerMouse.Instance?.gameObject;
-    bool isLockOnSelectable = Target.GetComponent<LockOnSelectable>() != null;
-    bool isEnemy = Target.GetComponent<DamageReceiver>() != null && !isPlayerMouse;
-
-    if (isEnemy)
-    {
-        if (distance <= attackRange)
-        {
-            CurrentState = AIState.Attack;
-            Agent.isStopped = true;
-            AttackActive = true;
-
-            if (directionToTarget != Vector3.zero)
+            Health attackerHealth = lastAttacker.GetComponent<Health>();
+            if (attackerHealth == null || attackerHealth.GetCurrHealth() <= 0)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                lastAttacker = null;
+                if (Target == lastAttacker)
+                {
+                    SetTarget(null);
+                }
+            }
+        }
+        else if (lastAttacker != null && Time.time - lastAttackTime >= retaliationMemoryDuration)
+        {
+            lastAttacker = null;
+        }
+    
+        if (Target == null)
+        {
+            AttackActive = false;
+            if (CurrentState == AIState.Attack || CurrentState == AIState.Walk)
+            {
+                Agent.isStopped = true;
+                Agent.ResetPath(); // Important: Clear the path to stop sliding
+                CurrentState = AIState.Idle;
+            }
+            return;
+        }
+
+        Vector3 targetPos = Target.transform.position;
+        Vector3 directionToTarget = targetPos - transform.position;
+        directionToTarget.y = 0;
+        float distance = directionToTarget.magnitude;
+
+        bool isPlayerMouse = Target == PlayerMouse.Instance?.gameObject;
+        bool isLockOnSelectable = Target.GetComponent<LockOnSelectable>() != null;
+        bool isEnemy = Target.GetComponent<DamageReceiver>() != null && !isPlayerMouse;
+
+        if (isEnemy)
+        {
+            Debug.Log("Target is enemy. Distance: " + distance + ", Attack range: " + attackRange + ", AttackActive: " + AttackActive);
+    
+            if (distance <= attackRange)
+            {
+                CurrentState = AIState.Attack;
+                Agent.isStopped = true;
+                Agent.ResetPath();
+                AttackActive = true;
+                Debug.Log("Mech is attacking! AttackActive set to true");
+
+                if (directionToTarget != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                }
+            }
+            else
+            {
+                CurrentState = AIState.Walk;
+                Agent.isStopped = false;
+                AttackActive = false;
+                Agent.SetDestination(targetPos);
+            }
+        }
+        else if (isLockOnSelectable)
+        {
+            CurrentState = (distance > Config.MIN_AI_DISTANCE) ? AIState.Walk : AIState.Idle;
+            AttackActive = false;
+            
+            if (CurrentState == AIState.Idle)
+            {
+                Agent.isStopped = true;
+                Agent.ResetPath();
+            }
+            else
+            {
+                Agent.isStopped = false;
+                Vector3 destination = targetPos - directionToTarget.normalized * Config.MIN_AI_DISTANCE;
+                Agent.SetDestination(destination);
             }
         }
         else
         {
             CurrentState = AIState.Walk;
-            Agent.isStopped = false;
             AttackActive = false;
+            Agent.isStopped = false;
             Agent.SetDestination(targetPos);
         }
     }
-    else if (isLockOnSelectable)
-    {
-        CurrentState = (distance > Config.MIN_AI_DISTANCE) ? AIState.Walk : AIState.Idle;
-        AttackActive = false;
-        
-        if (CurrentState == AIState.Idle)
-        {
-            Agent.isStopped = true;
-        }
-        else
-        {
-            Agent.isStopped = false;
-            Vector3 destination = targetPos - directionToTarget.normalized * Config.MIN_AI_DISTANCE;
-            Agent.SetDestination(destination);
-        }
-    }
-    else
-    {
-        CurrentState = AIState.Walk;
-        AttackActive = false;
-        Agent.isStopped = false;
-        Agent.SetDestination(targetPos);
-    }
-}
 
     public void SetTarget(GameObject NewTarget)
     {    
-    if (Target != null)
-    {
-    Health oldHealth = Target.GetComponent<Health>();
-    if (oldHealth != null)
-    {
-        oldHealth.onDeath.RemoveListener(HandleTargetDeath);
-    }
-    }
-    bool targetChanged = Target != NewTarget;
-    Target = NewTarget;
-
-    if (Target != null)
-    {
-    if (targetChanged)
-    {
-        Health newHealth = Target.GetComponent<Health>();
-        if (newHealth != null)
+        if (Target != null)
         {
-            newHealth.onDeath.AddListener(HandleTargetDeath);
+            Health oldHealth = Target.GetComponent<Health>();
+            if (oldHealth != null)
+            {
+                oldHealth.onDeath.RemoveListener(HandleTargetDeath);
+            }
         }
-    }
+    
+        bool targetChanged = Target != NewTarget;
+        Target = NewTarget;
+        
+        if (Target != null)
+        {
+            if (targetChanged)
+            {
+                Health newHealth = Target.GetComponent<Health>();
+                if (newHealth != null)
+                {
+                    newHealth.onDeath.AddListener(HandleTargetDeath);
+                }
+            }
 
-    if (targetChanged)
-    {
-        AttackActive = false;
-        CurrentState = AIState.Walk;
-    }
+            if (targetChanged)
+            {
+                AttackActive = false;
+                CurrentState = AIState.Walk;
+            }
 
-    if (Agent != null)
-    {
-        Agent.isStopped = false;
-        Agent.SetDestination(Target.transform.position);
-    }
-    }
-    else
-    {
-    CurrentState = AIState.Idle;
-    AttackActive = false;
+            if (Agent != null)
+            {
+                Agent.isStopped = false;
+                Agent.SetDestination(Target.transform.position);
+            }
+        }
+        else
+        {
+            CurrentState = AIState.Idle;
+            AttackActive = false;
 
-    if (Agent != null)
-    {
-        Agent.isStopped = true;
-        Agent.ResetPath();
-    }
-    }
+            if (Agent != null)
+            {
+                Agent.isStopped = true;
+                Agent.ResetPath();
+            }
+        }
     }
 
     private void HandleTargetDeath()

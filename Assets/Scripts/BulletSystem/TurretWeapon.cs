@@ -53,7 +53,7 @@ public class TurretWeapon : MonoBehaviour
 
         if (visionManager.MouseIsSpotted) target = visionManager.Mouse;
         else if (visionManager.MechIsSpotted) target = visionManager.Mech;
-        
+    
         if (target == null) return;
 
         Vector3 shootFrom = transform.position;
@@ -67,7 +67,8 @@ public class TurretWeapon : MonoBehaviour
                 DamageReceiver damageReceiver = hit.transform.GetComponent<DamageReceiver>();
                 if (damageReceiver != null)
                 {
-                    damageReceiver.ReceiveDamage((int)damage);
+                    GameObject damageSource = transform.parent?.gameObject ?? gameObject;
+                    damageReceiver.ReceiveDamage((int)damage, damageSource);
                 }
                 StartCoroutine(ShowShot(shootFrom, hit.point));
             }

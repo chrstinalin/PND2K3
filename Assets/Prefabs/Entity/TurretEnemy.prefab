@@ -353,6 +353,9 @@ GameObject:
   - component: {fileID: 8819493345059424479}
   - component: {fileID: 5995367760747549583}
   - component: {fileID: 9212854309758076094}
+  - component: {fileID: 911128769324280496}
+  - component: {fileID: 8006907373281727458}
+  - component: {fileID: 5670066171105288104}
   m_Layer: 0
   m_Name: Turret
   m_TagString: EnemyBody
@@ -435,6 +438,52 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!65 &911128769324280496
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082496355683049882}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8006907373281727458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082496355683049882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a71a5cc0e94ba54c9da70ad5ff1755d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LockOnSelectable
+--- !u!114 &5670066171105288104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082496355683049882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69072f6e17189ef4da36564641a822ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Turret
+  scrapPilePrefab: {fileID: 8120636863540370014, guid: 28a4a5d29ea83e141bd98939972d6e7f, type: 3}
 --- !u!1 &7160770206694961771
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +747,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1705162314469512161, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_Name
-      value: DefaultBulletEmitter
+      value: TurretWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalPosition.x
@@ -743,19 +792,27 @@ PrefabInstance:
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: bulletSFX
       value: 
-      objectReference: {fileID: 8300000, guid: 3ce75505092d77842b1e7689290c00d0, type: 3}
+      objectReference: {fileID: 8300000, guid: 517c80c040afbee4f9db1970f1a350c3, type: 3}
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: chargeSFX
       value: 
       objectReference: {fileID: 8300000, guid: 9ab49521d8fe90141bdb4202a0b426b9, type: 3}
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
+      propertyPath: chargeTime
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: fireCooldown
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: visionManager
       value: 
       objectReference: {fileID: 8819493345059424479}
+    - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
+      propertyPath: shotDisplayTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7858325003631072704, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: shotLineRenderer
       value: 
@@ -831,7 +888,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:

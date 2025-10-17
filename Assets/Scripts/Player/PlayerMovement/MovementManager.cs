@@ -58,14 +58,25 @@ public class MovementManager : PlayerMovementManager
             }
             else
             {
-                MechAIController.SetTarget(null);
+                if (MechAIController.Target != null)
+                {
+                    DamageReceiver targetDR = MechAIController.Target.GetComponent<DamageReceiver>();
+                    bool isEnemyTarget = targetDR != null && MechAIController.Target != Mouse.gameObject;
+                    if (!isEnemyTarget)
+                    {
+                        MechAIController.SetTarget(null);
+                    }
+                }
             }
-            
+        
         }
         else
         {
             MechMovementState.UpdateState(this, !IsMouseActive);
-            MechAIController.SetTarget(null);
+            if (MechAIController.Target == Mouse.gameObject)
+            {
+                MechAIController.SetTarget(null);
+            }
         }
 
         if (Input.GetButtonDown("MountKey"))
@@ -74,7 +85,6 @@ public class MovementManager : PlayerMovementManager
             else if (Vector3.Distance(Mouse.transform.position, Mech.transform.position) < Config.MECH_ENTER_DISTANCE) ToggleMouse(false);
         }
     }
-
     public override void ToggleMouse(bool toggle)
     {
         IsMouseActive = toggle;
@@ -82,12 +92,41 @@ public class MovementManager : PlayerMovementManager
 
         if (IsMouseActive)
         {
+            if (MechAIController != null && MechAIController.Agent != null)
+            {
+                MechAIController.Agent.isStopped = true;
+                MechAIController.Agent.ResetPath();
+                MechAIController.Agent.velocity = Vector3.zero;
+            }
+            Rigidbody mechRb = Mech.GetComponent<Rigidbody>();
+            if (mechRb != null)
+            {
+                mechRb.velocity = Vector3.zero;
+                mechRb.angularVelocity = Vector3.zero;
+            }
+            MechMovementState.Reset();
+        
             CameraManager.SetFollowEntity(Mouse, Config.MOUSE_MAX_ZOOM);
             Mouse.transform.position = Mech.transform.position + Mech.transform.forward * -2;
             MechMovementState.UpdateJoyStick(Constant.JOY_RIGHT);
         }
         else
         {
+            if (MechAIController != null && MechAIController.Agent != null)
+            {
+                MechAIController.Agent.isStopped = false;
+                MechAIController.Agent.velocity = Vector3.zero;
+                MechAIController.Agent.ResetPath();
+            }
+        
+            Rigidbody mechRb = Mech.GetComponent<Rigidbody>();
+            if (mechRb != null)
+            {
+                mechRb.velocity = Vector3.zero;
+                mechRb.angularVelocity = Vector3.zero;
+            }
+            MouseMovementState.Reset();
+        
             CameraManager.SetFollowEntity(Mech, Config.MECH_MAX_ZOOM);
             MechMovementState.UpdateJoyStick(Constant.JOY_LEFT);
         }        

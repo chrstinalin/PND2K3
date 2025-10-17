@@ -18,18 +18,29 @@ public class PlayerMech : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        InventoryManager = gameObject.AddComponent<MechaInventoryManager>();
+        DamageReceiver = gameObject.AddComponent<DamageReceiver>();
+        AIController = GetComponent<MechAIController>();
+        Health = gameObject.AddComponent<Health>();
     }
 
     void Start()
     {
-        InventoryManager = gameObject.AddComponent<MechaInventoryManager>();
-        DamageReceiver = gameObject.AddComponent<DamageReceiver>();
-        AIController = gameObject.AddComponent<MechAIController>();
-
-        Health = gameObject.GetComponent<Health>();
-        Health.onDeath.AddListener(OnDeath);
-        DamageReceiver.onTakeDamage.AddListener(TakeDamage);
-
+        if (AIController == null)
+        {
+            AIController = GetComponent<MechAIController>();
+        }
+        
+        if (Health != null)
+        {
+            Health.onDeath.AddListener(OnDeath);
+        }
+        
+        if (DamageReceiver != null)
+        {
+            DamageReceiver.onTakeDamage.AddListener(TakeDamage);
+            DamageReceiver.onTakeDamageWithSource.AddListener(TakeDamageFromSource);
+        }
     }
 
     void Update()
@@ -44,10 +55,33 @@ public class PlayerMech : MonoBehaviour
         }
     }
 
-
     public void TakeDamage(int damage)
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable || Health == null) return;
+        Health.TakeDamage(damage);
+        isInvulnerable = true;
+        iFrameTimer = iFrameDuration;
+        StartCoroutine(FlashSprite());
+    }
+
+    public void TakeDamageFromSource(int damage, GameObject source)
+    {
+        if (AIController == null)
+        {
+            AIController = GetComponent<MechAIController>();
+            Debug.Log("Tried to get AIController: " + (AIController != null));
+        }
+    
+        if (AIController != null && source != null)
+        {
+            AIController.OnAttackedBy(source);
+        }
+        
+        if (isInvulnerable || Health == null) 
+        {
+            return;
+        }
+    
         Health.TakeDamage(damage);
         isInvulnerable = true;
         iFrameTimer = iFrameDuration;
@@ -57,7 +91,10 @@ public class PlayerMech : MonoBehaviour
     public void OnDeath()
     {
         transform.position = new Vector3(0, 1, 0);
-        Health.Heal(Health.GetMaxHealth());
+        if (Health != null)
+        {
+            Health.Heal(Health.GetMaxHealth());
+        }
     }
 
     private IEnumerator FlashSprite()
@@ -89,5 +126,4 @@ public class PlayerMech : MonoBehaviour
             renderers[i].material.color = originalColors[i];
         }
     }
-
 }

@@ -26,10 +26,12 @@ public class PlayerMouse : MonoBehaviour
         InventoryManager = gameObject.AddComponent<MouseInventoryManager>();
         DamageReceiver = gameObject.AddComponent<DamageReceiver>();
         GroundCollider = GameObject.FindGameObjectWithTag("MouseGroundCollider");
-
-        Health = gameObject.GetComponent<Health>();
+        
+        Health = gameObject.AddComponent<Health>();
         Health.onDeath.AddListener(OnDeath);
+
         DamageReceiver.onTakeDamage.AddListener(TakeDamage);
+        
     }
 
     void Update()
@@ -47,12 +49,12 @@ public class PlayerMouse : MonoBehaviour
     public GameObject getActivePlayer()
     {
         if (gameObject.activeInHierarchy) return gameObject;
-        else return PlayerMech.Instance.gameObject;
+        else return PlayerMech.Instance != null ? PlayerMech.Instance.gameObject : null;
     }
 
     public void TakeDamage(int damage)
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable || Health == null) return;
         Health.TakeDamage(damage);
         isInvulnerable = true;
         iFrameTimer = iFrameDuration;
@@ -63,7 +65,10 @@ public class PlayerMouse : MonoBehaviour
     {
         Debug.Log("Player Died. Respawning...");
         transform.position = new Vector3(0, 1, 0);
-        Health.Heal(Health.GetMaxHealth());
+        if (Health != null)
+        {
+            Health.Heal(Health.GetMaxHealth());
+        }
     }
 
     private IEnumerator FlashSprite()

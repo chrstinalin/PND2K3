@@ -13,48 +13,61 @@ public class MechWeapon : MonoBehaviour
     private float _timer;
     private bool isCharging = false;
     private float damage = 1f;
-    [SerializeField] private float fireCooldown = 2f;
-    [SerializeField] private float chargeTime = 0.5f;
+    [SerializeField] private float fireCooldown = 1f;
+    [SerializeField] private float chargeTime = 1f;
     [SerializeField] private float shotDisplayTime = 0.25f;
 
     void Start()
     {
         aiController = MechAIController.Instance;
         Owner = aiController;
+    
         if (shotLineRenderer != null) shotLineRenderer.enabled = false;
     }
-
     void Update()
     {
         _timer += Time.deltaTime;
-        
-        if (_timer >= fireCooldown && Owner != null && Owner.isAttack() && !isCharging)
+    
+        if (Owner == null && MechAIController.Instance != null)
+        {
+            aiController = MechAIController.Instance;
+            Owner = aiController;
+        }
+    
+        bool ownerIsAttacking = Owner != null && Owner.isAttack();
+        bool canFire = _timer >= fireCooldown && Owner != null && ownerIsAttacking && !isCharging;
+    
+        if (canFire)
         {
             StartCoroutine(ChargeAndFire());
             _timer = 0;
         }
     }
 
-    private IEnumerator ChargeAndFire()
-    {
-        isCharging = true;
-        if (chargeSFX != null) AudioManager.Instance.PlaySFX(chargeSFX);
-        yield return new WaitForSeconds(chargeTime);
-
-        Fire();
-
-        isCharging = false;
-    }
-
     public virtual void Fire()
     {
-        if (aiController == null) return;
+        if (aiController == null)
+        {
+            return;
+        }
 
         GameObject target = aiController.GetCurrentTarget();
+
+        if (target == null)
+        {
+            return;
+        }
+
+        if (!target.activeInHierarchy)
+        {
+            return;
+        }
+
         DamageReceiver targetDamageReceiver = target.GetComponent<DamageReceiver>();
-        if (target == null) return;
-        if (!target.activeInHierarchy) return;
-        if (targetDamageReceiver == null) return;
+        if (targetDamageReceiver == null)
+        {
+            return;
+        }
 
         Vector3 shootFrom = transform.position;
         Vector3 fireDirection = (target.transform.position - shootFrom).normalized;
@@ -62,17 +75,34 @@ public class MechWeapon : MonoBehaviour
         
         if (Physics.Raycast(shootFrom, fireDirection, out hit, Mathf.Infinity))
         {
-            if (hit.transform == target.transform)
+            Transform hitRoot = hit.transform.root;
+            Transform targetRoot = target.transform.root;
+            bool hitTarget = hit.transform == target.transform || hit.transform.IsChildOf(target.transform) ||
+                             target.transform.IsChildOf(hit.transform);
+
+            if (hitTarget)
             {
                 if (bulletSFX != null) AudioManager.Instance.PlaySFX(bulletSFX);
-                DamageReceiver damageReceiver = hit.transform.GetComponent<DamageReceiver>();
+                DamageReceiver damageReceiver = target.GetComponent<DamageReceiver>();
                 if (damageReceiver != null)
                 {
-                    damageReceiver.ReceiveDamage((int)damage);
+                    GameObject damageSource = PlayerMech.Instance != null ? PlayerMech.Instance.gameObject : gameObject;
+                    damageReceiver.ReceiveDamage((int)damage, damageSource);
                 }
+
                 StartCoroutine(ShowShot(shootFrom, hit.point));
             }
         }
+    }
+
+    private IEnumerator ChargeAndFire()
+    {
+        isCharging = true;
+        if (chargeSFX != null) AudioManager.Instance.PlaySFX(chargeSFX);
+    
+        yield return new WaitForSeconds(chargeTime);
+        Fire();
+        isCharging = false;
     }
 
     private IEnumerator ShowShot(Vector3 start, Vector3 end)

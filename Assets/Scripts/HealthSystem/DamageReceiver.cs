@@ -1,20 +1,27 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class DamageEvent : UnityEvent<int> { }
+
+[System.Serializable]
+public class DamageEventWithSource : UnityEvent<int, GameObject> { }
+
 public class DamageReceiver : MonoBehaviour
 {
-    [NonSerialized] public UnityEvent<int> onTakeDamage = new();
-    
-    void OnTriggerEnter(Collider other)
+    public DamageEvent onTakeDamage = new DamageEvent();
+    public DamageEventWithSource onTakeDamageWithSource = new DamageEventWithSource();
+
+    public void ReceiveDamage(int damage, GameObject source)
     {
-        var bullet = other.GetComponent<Bullet>();
-        if (bullet == null) return;
-        Destroy(other.gameObject);
-        if (!bullet.DamageDealt)
+        if (onTakeDamage != null)
         {
-            bullet.DamageDealt = true;
-            onTakeDamage.Invoke(bullet.damage);
+            onTakeDamage.Invoke(damage);
+        }
+        
+        if (onTakeDamageWithSource != null)
+        {
+            onTakeDamageWithSource.Invoke(damage, source);
         }
     }
 }

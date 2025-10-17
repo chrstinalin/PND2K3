@@ -72,26 +72,17 @@ public class MovementManager : PlayerMovementManager
             }
             else
             {
-                if (MechAIController.Target != null)
-                {
-                    DamageReceiver targetDR = MechAIController.Target.GetComponent<DamageReceiver>();
-                    bool isEnemyTarget = targetDR != null && MechAIController.Target != Mouse.gameObject;
-                    if (!isEnemyTarget)
-                    {
-                        MechAIController.SetTarget(null);
-                    }
-                }
+                MechAIController.SetTarget(null);
             }
         
         }
         else
         {
+            MechMovementState.UpdateState(this, !IsMouseActive, moveDir);
             if (MechAIController.Target == Mouse.gameObject)
             {
                 MechAIController.SetTarget(null);
             }
-            MechMovementState.UpdateState(this, !IsMouseActive, moveDir);
-            MechAIController.SetTarget(null);
         }
 
         if (Input.GetButtonDown("MountKey"))
@@ -116,7 +107,7 @@ public class MovementManager : PlayerMovementManager
             Rigidbody mechRb = Mech.GetComponent<Rigidbody>();
             if (mechRb != null)
             {
-                mechRb.velocity = Vector3.zero;
+                mechRb.linearVelocity = Vector3.zero;
                 mechRb.angularVelocity = Vector3.zero;
             }
             MechMovementState.Reset();
@@ -137,7 +128,7 @@ public class MovementManager : PlayerMovementManager
             Rigidbody mechRb = Mech.GetComponent<Rigidbody>();
             if (mechRb != null)
             {
-                mechRb.velocity = Vector3.zero;
+                mechRb.linearVelocity = Vector3.zero;
                 mechRb.angularVelocity = Vector3.zero;
             }
             MouseMovementState.Reset();

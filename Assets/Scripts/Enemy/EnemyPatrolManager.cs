@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 public class EnemyPatrolManager : MonoBehaviour, IOffense
 {
@@ -14,6 +11,8 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
     private GameObject ChaseEntity;
     private bool AttackActive = false;
     private int CurrentIndex = 0;
+    
+    [SerializeField] private float attackDistance = 10f;
 
     private AIState CurrentState;
 
@@ -33,8 +32,8 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
         VisionManager.UpdateVision();
 
         ChaseEntity = VisionManager.MouseIsSpotted ? VisionManager.Mouse :
-                      VisionManager.MechIsSpotted ? VisionManager.Mech :
-                      null;
+            VisionManager.MechIsSpotted ? VisionManager.Mech :
+            null;
 
         if (ChaseEntity)
         {
@@ -64,6 +63,11 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
         }
     }
 
+    public bool isAttack()
+    {
+        return ChaseEntity != null;
+    }
+
     void CalculateAIMovement()
     {
         if (Agent.remainingDistance < 1f && WayPoints.Length > 0)
@@ -79,18 +83,25 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
         {
             Vector3 targetPos = ChaseEntity.transform.position;
             float distance = Vector3.Distance(transform.position, targetPos);
-            Vector3 destination = transform.position;
-            if (distance > Config.MIN_AI_DISTANCE)
+            
+            if (distance <= attackDistance)
             {
-                destination = targetPos - (targetPos - transform.position).normalized * Config.MIN_AI_DISTANCE;
+                Agent.isStopped = true;
+                Agent.ResetPath();
+                
+                Vector3 lookDirection = (targetPos - transform.position).normalized;
+                lookDirection.y = 0;
+                if (lookDirection != Vector3.zero) 
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), 
+                        Time.deltaTime * 5f);
+                }
             }
             else
             {
-                Vector3 lookDirection = (targetPos - transform.position).normalized;
-                lookDirection.y = 0;
-                if (lookDirection != Vector3.zero) transform.rotation = Quaternion.LookRotation(lookDirection);
+                Agent.isStopped = false;
+                Agent.SetDestination(targetPos);
             }
-            Agent.SetDestination(destination);
         }
     }
 
@@ -101,10 +112,5 @@ public class EnemyPatrolManager : MonoBehaviour, IOffense
         Agent.isStopped = false;
         CurrentState = AIState.Walk;
         AttackActive = false;
-    }
-
-    public bool isAttack()
-    {
-        return AttackActive;
     }
 }

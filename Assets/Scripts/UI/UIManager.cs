@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI; // Use Unity UI
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,22 +25,36 @@ public class UIManager : MonoBehaviour
         if(!HealthPointContainer || !_HealthFront || !_HealthBack)
         {
             Debug.LogError("UI elements not found.");
+            return;
         }
 
         // MOUSE
         HealthPoints = HealthPointContainer.GetComponentsInChildren<Image>();
 
-        MouseHealth = PlayerMouse.Instance.GetComponent<Health>();
-        MouseHealth.onHealthChanged.AddListener(OnMouseHealthChanged);
+        if (PlayerMouse.Instance != null)
+        {
+            MouseHealth = PlayerMouse.Instance.GetComponent<Health>();
+            if (MouseHealth != null)
+            {
+                MouseHealth.onHealthChanged.AddListener(OnMouseHealthChanged);
+            }
+        }
 
         // MECH
         HealthFront = _HealthFront.GetComponent<Image>();
         HealthBack = _HealthBack.GetComponent<Image>();
 
-        MechHealth = PlayerMech.Instance.GetComponent<Health>();
-        MechHealth.onMaxedHealth.AddListener(OnMechMaxedHealth);
-        MechHealth.onHealthChanged.AddListener(OnMechHealthChanged);
+        if (PlayerMech.Instance != null)
+        {
+            MechHealth = PlayerMech.Instance.GetComponent<Health>();
+            if (MechHealth != null)
+            {
+                MechHealth.onMaxedHealth.AddListener(OnMechMaxedHealth);
+                MechHealth.onHealthChanged.AddListener(OnMechHealthChanged);
+            }
+        }
     }
+
     private void Update()
     {
         updateMechHealthUI();
@@ -78,15 +92,20 @@ public class UIManager : MonoBehaviour
 
     private void OnMechMaxedHealth(int HealthChange)
     {
-        HealthFront.fillAmount = 1f;
-        HealthBack.fillAmount = 1f;
+        if (HealthFront != null) HealthFront.fillAmount = 1f;
+        if (HealthBack != null) HealthBack.fillAmount = 1f;
     }
 
     public void OnMouseHealthChanged(int damage)
     {
+        if (MouseHealth == null || HealthPoints == null) return;
+        
         for (int i = 0; i < MouseHealth.GetMaxHealth(); i++)
         {
-            HealthPoints[i].enabled = i <= MouseHealth.GetCurrHealth() - 1;
+            if (i < HealthPoints.Length)
+            {
+                HealthPoints[i].enabled = i <= MouseHealth.GetCurrHealth() - 1;
+            }
         }
     }
 }

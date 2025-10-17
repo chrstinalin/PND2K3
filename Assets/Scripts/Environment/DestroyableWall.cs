@@ -3,18 +3,32 @@ using UnityEngine;
 public class DestroyableWall : MonoBehaviour
 {
     public AudioClip WallBreakSFX;
-    private Health health;
+    private DamageReceiver DamageReceiver;
+    private Health Health;
     
     void Awake()
     {
-        health = gameObject.GetComponent<Health>();
-        health.onDeath.AddListener(OnWallDestroyed);
+        Health = gameObject.GetComponent<Health>();
+        Health.onDeath.AddListener(OnWallDestroyed);
+        DamageReceiver = gameObject.AddComponent<DamageReceiver>();
+        DamageReceiver.onTakeDamage.AddListener(TakeDamage);
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        if (Health != null)
+        {
+            Health.TakeDamage(damage);
+        }
     }
 
     void OnWallDestroyed()
     {
         Debug.Log($"{gameObject.name} has been destroyed!");
-        AudioManager.Instance.PlaySFX(WallBreakSFX);
+        if (WallBreakSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(WallBreakSFX);
+        }
         Destroy(gameObject);
     }
 }

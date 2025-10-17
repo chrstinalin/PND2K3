@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 77184399168116333}
   - component: {fileID: 3677879620575908653}
   - component: {fileID: 2163532357852386957}
+  - component: {fileID: 3671893151664737182}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: MousePlayerEntity
@@ -4947,6 +4948,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1197654, y: 0.47864687, z: 1.8731384}
   m_Center: {x: -0.06581837, y: 0.23355663, z: 0.57326794}
+--- !u!65 &3671893151664737182
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275317914325388625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7119911, y: 1.7178451, z: 2.075636}
+  m_Center: {x: -0.18101537, y: 0.33962077, z: 0.91967964}
 --- !u!1 &7869093110236443522
 GameObject:
   m_ObjectHideFlags: 0

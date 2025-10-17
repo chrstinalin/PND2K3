@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3485598496962335737}
   - component: {fileID: 5864995045195241869}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MouseLOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 4847002022383296857}
   - component: {fileID: 7430047572160243965}
   - component: {fileID: 8750327280338781521}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Nuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6002803112813986805}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TurretBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9223242047111492838}
   - component: {fileID: 1458941166473661617}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TurretEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 7624655161505566775}
   - component: {fileID: 8819493345059424479}
   - component: {fileID: 5995367760747549583}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 7712591285073531977}
   - component: {fileID: 4979762588566093076}
   - component: {fileID: 1396975415114315012}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766257020771910595}
   - component: {fileID: 8498580129164295490}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MechLOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,6 +680,10 @@ PrefabInstance:
     - target: {fileID: 1705162314469512161, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_Name
       value: DefaultBulletEmitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705162314469512161, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1970886457119731902, guid: 4dd495c1c4c98479b9f6dc810b62b684, type: 3}
       propertyPath: m_LocalPosition.x
